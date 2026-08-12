@@ -1,0 +1,16 @@
+{
+    "animeName": "🫐",
+    "percentageMax": "0.2",
+    "totalFrame": "5",
+    "width": "164",
+    "height": "380",
+    "headHeight": "213",
+    "objectWidth": 164,
+    "objectHeight": 380,
+    "objectBack": true,
+    "dontWearHat": true,
+    "bat": false,
+    "arrayFrame": [
+        {"prop": "0,380,0,0"}
+    ]
+}

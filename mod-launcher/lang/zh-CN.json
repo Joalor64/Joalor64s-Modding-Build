@@ -1,0 +1,42 @@
+{
+    "code": "zh-CN",
+    "name": "简体中文",
+    "translation": {
+        "pop": {
+            "settingsTitle": "设置",
+            "settingsLang": "语言",
+            "settingsLight": "亮色模式",
+            "settingsFullscreen": "全屏",
+            "exitConfirm": "您确定要退出吗？",
+            "yes": "是",
+            "no": "否",
+            "exit": "退出",
+            "cancel": "取消",
+            "returnToGame": "返回游戏",
+            "infoTitle": "信息",
+            "about": "关于",
+            "aboutTxt": "一个用于基于RMB的Incredibox模组的简易模组启动器。",
+            "howTo": "教程",
+            "howToTxt": "在 \"resources/mods/\" 中，创建一个以你的模组名称命名的文件夹。内部，添加一个 \"src/\" 文件夹用于模组文件（这些文件应从 \"resources/app/src\" 中提取）。还请包括 \"icon.png\" 作为模组图标，\"banner.png\" 作为横幅，以及一个包含模组元数据（名称、作者、版本、描述等）的 \"mod.json\"。然后，打开启动器并搜索你的模组。如果一切操作正确，模组应该已安装。若你更新了模组的任何文件，可以刷新模组以实际更新。随时想返回启动器，按 F1。",
+            "credits": "致谢",
+            "creditsTxt": "由 Joalor64 开发的模组启动器\n受 Rem 启发\nIncredibox 由 SO FAR SO GOOD 开发",
+            "version": "版本 ",
+            "searchTitle": "搜索模组",
+            "searchHint": "搜索已安装的模组...",
+            "deleteTitle": "删除模组",
+            "deleteConfirm1": "您确定要删除 ",
+            "deleteConfirm2": "此模组",
+            "delete": "删除",
+            "modInfoTitle": "模组信息",
+            "modInfoName": "名称",
+            "modInfoAuthor": "作者",
+            "modInfoDesc": "描述",
+            "modInfoVersion": "模组版本",
+            "preview": "预览",
+            "confirmRedirectTitle": "您即将离开！",
+            "confirmRedirectTxt": "您即将访问 %{url}！\n是否继续？",
+            "noLinkTitle": "无链接",
+            "noLinkTxt": "此模组没有预览链接。"
+        }
+    }
+}

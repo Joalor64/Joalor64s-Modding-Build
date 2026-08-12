@@ -1,0 +1,42 @@
+{
+    "code": "en-US",
+    "name": "English",
+    "translation": {
+        "pop": {
+            "settingsTitle": "Settings",
+            "settingsLang": "Language",
+            "settingsLight": "Light Mode",
+            "settingsFullscreen": "Fullscreen",
+            "exitConfirm": "Are you sure you want to exit?",
+            "yes": "Yes",
+            "no": "No",
+            "exit": "Exit",
+            "cancel": "Cancel",
+            "returnToGame": "Return to Game",
+            "infoTitle": "Info",
+            "about": "About",
+            "aboutTxt": "A simple mod launcher for RMB-based Incredibox mods.",
+            "howTo": "Tutorial",
+            "howToTxt": "In \"resources/mods/\", create a folder with the name of your mod. Inside, add a \"src/\" folder for the mod's files (which should be extracted from \"resources/app/src\"). Also include \"icon.png\" for the mod icon, \"banner.png\" for the banner, and a \"mod.json\" with the mod's metadata (name, author, version, description, etc.). Then, open the launcher and search for your mod. If you did everything correctly, the mod should be installed. In case you update any of the mod's files, you can refresh the mod so it actually updates. To go back to the launcher at anytime, press F1.",
+            "credits": "Credits",
+            "creditsTxt": "Mod Launcher by Joalor64\nInspired by Rem\nIncredibox by SO FAR SO GOOD",
+            "version": "Version ",
+            "searchTitle": "Search Mods",
+            "searchHint": "Search installed mods...",
+            "deleteTitle": "Delete Mod",
+            "deleteConfirm1": "Are you sure you want to delete ",
+            "deleteConfirm2": "this mod",
+            "delete": "Delete",
+            "modInfoTitle": "Mod Info",
+            "modInfoName": "Name",
+            "modInfoAuthor": "Author(s)",
+            "modInfoDesc": "Description",
+            "modInfoVersion": "Mod Version",
+            "preview": "Preview",
+            "confirmRedirectTitle": "You are leaving!",
+            "confirmRedirectTxt": "You are about to visit %{url}!\nDo you want to continue?",
+            "noLinkTitle": "No Link",
+            "noLinkTxt": "This mod does not have a preview link."
+        }
+    }
+}

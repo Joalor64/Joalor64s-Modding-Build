@@ -1,0 +1,6 @@
+// Softcoded Y offsets for special characters in About popup
+// You can override core defaults or add new entries
+{
+    // Example
+    // "temp_polo": -10
+}

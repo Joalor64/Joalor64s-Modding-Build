@@ -1,0 +1,55 @@
+Amogus Startup / Entrance Animation Guide
+========================================
+
+Overview
+--------
+The startup animation replaces the default waiting polo with a more dynamic entrance.  
+It’s **not aimed at casual users** — modders familiar with XML and Adobe Animate will get the most out of it.  
+Fully compatible with the Thomasbox mod, and can also be adapted using sprite sheet generators (e.g., FNF spritesheet tool).
+
+Required PNGs
+-------------
+Each startup animation needs **three PNG files**:
+
+1. Main Startup: `example_startup.png`
+   - Standard animation for the startup sequence.
+
+2. Muted Startup: `example_startup-mute.png`
+   - Same animation with baked opacity (~70%).  
+   - **Note:** This cannot be adjusted with `ne.globalAlpha` — animated sprites don’t respond correctly when drawn with `drawImage`.
+
+3. Shadow Startup: `example_startup-shadow.png`
+   - Fully black overlay, used for when clicking on that polo and it hides the rest of them on stage.
+
+Usage Notes
+-----------
+- Keep startup animations **short** to maintain pacing.  
+- You can use Adobe Animate export options, or an FNF spritesheet + XML generator.  
+- Each XML frame corresponds to a `drawImage` rectangle, so frame dimensions must match the PNG.  
+- All three PNGs are **required**; missing files will prevent the animation from rendering.
+
+Comparison with Default Waiting Polo
+-----------------------------------
+Default:  
+- Only tweened waiting sprite animation.  
+- No mute or shadow overlays (these are handled automatically by the game code).
+
+Startup Animation:  
+- Full frame-by-frame entrance animation.  
+- Supports normal, mute (baked ~70% opacity), and shadow overlays.  
+- Replaces the default waiting sequence with a polished effect.
+
+Modding Advice
+--------------
+- Do **not** try to adjust the mute overlay using `ne.globalAlpha`; edit the PNG instead.  
+- Works alongside existing mod features: custom width/height, object animation, upside-down polos.  
+- Startup animations are meant for modders looking to add a professional touch to their builds.
+
+Extra Tips
+----------
+- Can be combined with other mod features for unique builds.  
+- Gives a more dynamic, professional look than default wait polos.
+
+Credits
+-------
+Feature added by Rizsim Studios - Thomasbox Crew

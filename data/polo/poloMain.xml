@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Main Default Polo Config:
+  This system allows you to override hardcoded engine limits for custom character sizes and eye
+logic. 
+
+  CORE ATTRIBUTES:
+  - <sprWidth> / <sprHeight>: The physical dimensions of the Polo sprite. (Standard: 164x400).
+  - <eyesTopY>: The 'Anchor' that pins eyes to the face. Lower numbers move eyes UP, Higher moves
+them DOWN.
+  - <maxPupMove>: The 'Leash' for pupils. Standard is 7. Increase this (e.g., 10) for wider eye
+movement.
+
+  THE NUDGE SYSTEM (EYE CLIP FIXING):
+  These values act as 'Invisible Walls' to stop pupils from escaping the eye art at high mouse
+coordinates.
+  - <nudgeRight>: Fixes clipping when looking at right-side edges (like X: 2345). Increase (>1.0) to
+push further out.
+  - <nudgeLeft>: Controls the left-side boundary. Usually safe at 0.80 or 1.0.
+  - <nudgeUp>: The 'Ceiling'. Use a small decimal like 0.100 to stop pupils from disappearing under
+the brow.
+  - <nudgeDown>: The 'Floor'. Prevents pupils from sinking into the chin or bottom of the eye.
+
+  ANIMATION MAPPING:
+  - <sprEyelid1Y> thru <sprEyelid4Y>: The Y-coordinate positions for each blink frame in your
+'default-hd.png' file.
+  - <id>: Match the <poloMap id="X"> to the Polo's ID in the game to apply these unique rules.
+-->
+
+<data>
+	<default>
+		<polo>
+			<sprWidth>164</sprWidth>
+			<sprHeight>400</sprHeight>
+			<sprEyesH>40</sprEyesH>
+			<sprEyesY>0</sprEyesY>
+			<sprEyelid1Y>0</sprEyelid1Y>
+			<sprEyelid2Y>40</sprEyelid2Y>
+			<sprEyelid3Y>80</sprEyelid3Y>
+			<sprEyelid4Y>120</sprEyelid4Y>
+			<pup1Y>110</pup1Y>
+			<pup2Y>110</pup2Y>
+			<eyesTopY>97</eyesTopY>
+		</polo>
+	</default>
+
+	<!-- EXAMPLE OVERRIDES -->
+	<!--
+	<v1>
+		<poloMap id="3">
+			<polo>
+				<sprWidth>200</sprWidth>
+				<sprHeight>360</sprHeight>
+				<sprEyesH>60</sprEyesH>
+				<sprEyesY>0</sprEyesY>
+				<sprEyelid2Y>60</sprEyelid2Y>
+				<sprEyelid3Y>120</sprEyelid3Y>
+				<eyesTopY>78</eyesTopY>
+				<pupilType>svg</pupilType>
+				<pupilW>7</pupilW>
+				<pupilH>12</pupilH>
+				<pup1X>100</pup1X>
+				<pup1Y>150</pup1Y>
+				<pup2X>118</pup2X>
+				<pup2Y>150</pup2Y>
+				<maxPupMove>10</maxPupMove>
+				<pupilColor>#FF00FF</pupilColor>
+				<nudgeRight>1.58</nudgeRight>
+				<nudgeLeft>0.80</nudgeLeft>
+				<nudgeDown>0.77</nudgeDown>
+				<nudgeUp>0.100</nudgeUp>
+			</polo>
+		</poloMap>
+	</v1>
+
+	<v2>
+		<polo>
+			<eyesTopY>80</eyesTopY>
+			<pup1Y>90</pup1Y>
+			<pup2Y>90</pup2Y>
+		</polo>
+	</v2>
+	-->
+</data>

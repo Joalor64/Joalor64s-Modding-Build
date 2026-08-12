@@ -1,0 +1,42 @@
+{
+    "code": "fr",
+    "name": "Français",
+    "translation": {
+        "pop": {
+            "settingsTitle": "Paramètres",
+            "settingsLang": "Langue",
+            "settingsLight": "Mode Clair",
+            "settingsFullscreen": "Plein écran",
+            "exitConfirm": "Êtes-vous sûr de vouloir quitter ?",
+            "yes": "Oui",
+            "no": "Non",
+            "exit": "Quitter",
+            "cancel": "Annuler",
+            "returnToGame": "Retour au jeu",
+            "infoTitle": "Info",
+            "about": "À propos",
+            "aboutTxt": "Un simple lanceur de mods pour les mods Incredibox basés sur RMB.",
+            "howTo": "Tutoriel",
+            "howToTxt": "Dans \"resources/mods/\", créez un dossier portant le nom de votre mod. À l'intérieur, ajoutez un dossier \"src/\" pour les fichiers du mod (qui doivent être extraits de \"resources/app/src\"). Incluez également \"icon.png\" pour l'icône du mod, \"banner.png\" pour la bannière, et un \"mod.json\" contenant les métadonnées du mod (nom, auteur, version, description, etc.). Ensuite, ouvrez le lanceur et recherchez votre mod. Si tout est correct, le mod sera installé. Si vous mettez à jour des fichiers du mod, vous pouvez rafraîchir le mod pour qu'il se mette à jour réellement. Pour revenir au lanceur à tout moment, appuyez sur F1.",
+            "credits": "Crédits",
+            "creditsTxt": "Mod Launcher par Joalor64\nInspiré par Rem\nIncredibox par SO FAR SO GOOD",
+            "version": "Version ",
+            "searchTitle": "Rechercher des mods",
+            "searchHint": "Rechercher les mods installés...",
+            "deleteTitle": "Supprimer le mod",
+            "deleteConfirm1": "Êtes-vous sûr de vouloir supprimer ",
+            "deleteConfirm2": "ce mod",
+            "delete": "Supprimer",
+            "modInfoTitle": "Infos du mod",
+            "modInfoName": "Nom",
+            "modInfoAuthor": "Auteur(s)",
+            "modInfoDesc": "Description",
+            "modInfoVersion": "Version du mod",
+            "preview": "Aperçu",
+            "confirmRedirectTitle": "Vous quittez la page !",
+            "confirmRedirectTxt": "Vous êtes sur le point de visiter %{url} !\nVoulez-vous continuer ?",
+            "noLinkTitle": "Pas de lien",
+            "noLinkTxt": "Ce mod n'a pas de lien d'aperçu."
+        }
+    }
+}

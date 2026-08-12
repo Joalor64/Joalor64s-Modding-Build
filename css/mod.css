@@ -1,0 +1,14 @@
+/* ADD YOUR CUSTOM CSS CODE HERE! */
+
+#cnv-stage {
+    filter: drop-shadow(10px 10px 0px rgba(0, 0, 0, 0.442));
+}
+
+#box-bottom #box-picto .picto {
+    filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, .8));
+}
+
+#box-bottom #box-picto .picto.drag .bck,
+.darkmode #box-bottom #box-picto .picto.drag .bck {
+    filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, .0));
+}

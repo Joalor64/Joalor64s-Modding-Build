@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+THIS HERE IS ONLY FOR THE POLO EYE ARRAY THATS ONLY USED ON RANDOM WHEN ON IDLE OR SOMETHING
+
+use <eyes></eyes> for placing in the numbers example can be seen below
+
+HOW TO USE:
+  - Each <eyes> tag is one animation loop (like a blink or a long stare).
+  - The numbers (0, 1, 2...) correspond to the vertical frames in your 'default-hd.png' file.
+  - Frame 0 is usually the "Open Eye" at the very top of your spritesheet column.
+  
+  ANIMATION TIPS:
+  - A simple blink looks like this: <eyes>0, 1, 2, 2, 1, 0</eyes> (Open -> Half -> Closed -> Half ->
+Open).
+  - Long strings of the same number (like 9, 9, 9...) create a "stare" where the character holds that
+frame.
+  - Adding many <eyes> blocks gives the "Random" system more variety so characters don't all blink at
+once.
+  
+  VERSION & ID OVERRIDES:
+  - Place sequences inside <v1>, <v8>, etc., to change animations for specific game versions.
+  - If you use <poloMap id="X">, these animations will ONLY play for that specific character ID.
+
+-->
+
+<poloEyes>
+	<!-- DEFAULT (fallback override if no version match) -->
+	<default>
+		<eyes>0,1,2,2,1,0</eyes>
+		<eyes>0,3,4,5,6,7,8,0</eyes>
+		<eyes>0,3,4,4,3,0</eyes>
+		<eyes>
+			0,1,2,2,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,1,2,2,2,2,0</eyes>
+		<eyes>
+			0,1,2,2,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,2,2,9,9,9,9,2,2,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,0</eyes>
+		<eyes>
+			0,1,2,2,9,9,9,9,9,9,9,9,9,9,2,2,2,10,10,10,10,10,10,10,10,10,10,10,1,2,2,10,10,10,10,10,2,2,0</eyes>
+		<eyes>
+			2,2,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,2,2,11,11,11,11,11,11,11,11,11,11,11,2,2,1,1</eyes>
+	</default>
+
+	<!-- VERSION OVERRIDES -->
+	<!--
+	<v2>
+		<eyes>0,1,1,2,2,1,0</eyes>
+		<eyes>2,2,11,11,11,11,2,2</eyes>
+	</v2>
+	-->
+</poloEyes>

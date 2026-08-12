@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="11_red-mungus_startup.png">
+	<!-- Created with Adobe Animate version 24.0.12.3 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="RED MUNGUS ANIM0000" x="0" y="0" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0001" x="328" y="0" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0002" x="656" y="0" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0003" x="984" y="0" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0004" x="0" y="760" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0005" x="328" y="760" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0006" x="656" y="760" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0007" x="984" y="760" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0008" x="0" y="1520" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0009" x="328" y="1520" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0010" x="656" y="1520" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0011" x="984" y="1520" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0012" x="0" y="2280" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0013" x="328" y="2280" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0014" x="656" y="2280" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0015" x="984" y="2280" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0016" x="984" y="2280" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0017" x="984" y="2280" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0018" x="984" y="2280" width="328" height="760"/>
+	<SubTexture name="RED MUNGUS ANIM0019" x="984" y="2280" width="328" height="760"/>
+</TextureAtlas>

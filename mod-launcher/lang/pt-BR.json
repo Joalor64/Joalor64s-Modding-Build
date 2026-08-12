@@ -1,0 +1,42 @@
+{
+    "code": "pt-BR",
+    "name": "Português",
+    "translation": {
+        "pop": {
+            "settingsTitle": "Configurações",
+            "settingsLang": "Idioma",
+            "settingsLight": "Modo Claro",
+            "settingsFullscreen": "Tela Cheia",
+            "exitConfirm": "Tem certeza de que deseja sair?",
+            "yes": "Sim",
+            "no": "Não",
+            "exit": "Sair",
+            "cancel": "Cancelar",
+            "returnToGame": "Retornar ao Jogo",
+            "infoTitle": "Informações",
+            "about": "Sobre",
+            "aboutTxt": "Um lançador de mods simples para mods do Incredibox baseados em RMB.",
+            "howTo": "Tutorial",
+            "howToTxt": "Em \"resources/mods/\", crie uma pasta com o nome do seu mod. Dentro, adicione uma pasta \"src/\" para os arquivos do mod (que devem ser extraídos de \"resources/app/src\"). Também inclua \"icon.png\" para o ícone do mod, \"banner.png\" para o banner e um \"mod.json\" com os metadados do mod (nome, autor, versão, descrição, etc.). Em seguida, abra o lançador e procure pelo seu mod. Se tudo estiver correto, o mod será instalado. Caso você atualize algum dos arquivos do mod, pode atualizar o mod para que ele realmente seja atualizado. Para voltar ao lançador a qualquer momento, pressione F1.",
+            "credits": "Créditos",
+            "creditsTxt": "Lançador de Mod por Joalor64\nInspirado por Rem\nIncredibox por SO FAR SO GOOD",
+            "version": "Versão ",
+            "searchTitle": "Procurar Mods",
+            "searchHint": "Procurar mods instalados...",
+            "deleteTitle": "Excluir Mod",
+            "deleteConfirm1": "Tem certeza de que deseja excluir ",
+            "deleteConfirm2": "este mod",
+            "delete": "Excluir",
+            "modInfoTitle": "Info do Mod",
+            "modInfoName": "Nome",
+            "modInfoAuthor": "Autor(es)",
+            "modInfoDesc": "Descrição",
+            "modInfoVersion": "Versão do Mod",
+            "preview": "Pré-visualização",
+            "confirmRedirectTitle": "Você está saindo!",
+            "confirmRedirectTxt": "Você está prestes a visitar %{url}!\nDeseja continuar?",
+            "noLinkTitle": "Sem Link",
+            "noLinkTxt": "Este mod não possui um link de pré-visualização."
+        }
+    }
+}

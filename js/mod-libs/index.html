@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Incredibox | Mod Library</title>
+    <meta content="So Far So Good" name="author">
+    <meta content="http://www.sofarsogood.fr" name="copyright">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="no" name="msapplication-tap-highlight">
+    <meta content="width=device-width,initial-scale=0.5" name="viewport">
+    <meta content="user-scalable=no,initial-scale=1,minimum-scale=1,width=device-width,height=device-height"
+        name="viewport">
+    <link href="../../css/style.min.css" rel="stylesheet">
+</head>
+
+<body style="display:flex;flex-direction:column">
+    <div id="fade-all"></div>
+    <div class="button-zone">
+        <div class="bt bt-big bt-round home right" id="bt-home">
+            <div class="bck"><svg class="icn-svg">
+                    <use xlink:href="#ic-home"></use>
+                </svg></div>
+            <div class="hitzone" onclick="goBack()"></div>
+        </div>
+    </div>
+    <div class="text-zone">
+        <div class="title">Played Mods</div>
+        <div class="text" id="mods-found">Counting...</div>
+    </div>
+    <div class="library-scroll">
+        <div id="library">Loading...</div>
+    </div>
+    <div class="box-popup" id="popup-delete-mod">
+        <div class="bac"></div>
+        <div class="flex">
+            <div class="scale">
+                <div class="box">
+                    <div class="pop">
+                        <div class="container">
+                            <div class="title">Delete mod?</div>
+                            <div class="text" id="popup-delete-text">Do you really want to delete this mod from your
+                                library?</div>
+                            <div class="content" style="display:flex;justify-content:center;gap:12px;margin-top:18px;">
+                                <div class="bt bt-light" id="popup-delete-cancel">
+                                    <div class="bck">
+                                        <div class="txt">Cancel</div>
+                                    </div>
+                                    <div class="hitzone"></div>
+                                </div>
+                                <div class="bt bt-light" id="popup-delete-confirm">
+                                    <div class="bck">
+                                        <div class="txt">Delete</div>
+                                    </div>
+                                    <div class="hitzone"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/runners/consoleViewer.js"></script>
+    <script src="../../js/runners/iconsLoader.js"></script>
+    <script src="modLibrary.js"></script>
+</body>
+
+</html>

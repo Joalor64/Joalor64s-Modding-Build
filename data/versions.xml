@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+HOW TO USE IT:
+• <line> category is used to create a new line (using more than 3 might cause issues)
+• name="TEXT" is the name of the icon
+• ID="NUMBER" is the ID of the icon
+• color="#HEX" is the color of the title (and checkmark if check is not set)
+• check="#HEX" is the color of the checkmark
+• radius="NUMBER" is how round the icon is (defaults to 25% if not set)
+• locked="true/false" is the lock status of the icon, if its locked it will be impossible to open
+• customName="true/false" if its enabled, it will use name of your version instead of the one from
+the switch-bt-title-tiny@2x.png
+• customImageTxt="asset-v1/IMAGE.png" is the path to a custom image for the version text
+• customIcon="asset-v1/ICON.png" is the path to the icon, removing customIcon will use the default
+one from switch-bt-visu-1@2x.png
+• hidden="true/false" if its enabled, it will hide the icon from the list
+• ignored="true/false" if its enabled, it will make icon not possible to click or interract at all
+ -->
+
+<icons>
+	<line>
+		<icon name="Template" ID="1" color="#666" check="#5f5f5f" locked="false" customName="true"
+			customIcon="asset-v1/icon.png" hidden="false"></icon>
+		<icon name="Modbox" ID="2" color="#ba7b3d" locked="false" customName="true"
+			customIcon="asset-v2/icon.png" hidden="false"></icon>
+	</line>
+</icons>

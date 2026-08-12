@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lore>
+    <!-- BEATS -->
+    <category type="BEAT">
+        <character id="1" slot="BEAT 1" image="11_red-mungus.png" json="11_red-mungus.json"
+            isLazyAhhCanvasRender="true" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="2" slot="BEAT 2" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="3" slot="BEAT 3" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="4" slot="BEAT 4" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="5" slot="BEAT 5" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+    </category>
+
+    <!-- EFFECTS -->
+    <category type="EFFECT">
+        <character id="1" slot="EFFECT 1" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="2" slot="EFFECT 2" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="3" slot="EFFECT 3" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="4" slot="EFFECT 4" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="5" slot="EFFECT 5" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+    </category>
+
+    <!-- MELODIES -->
+    <category type="MELODY">
+        <character id="1" slot="MELODY 1" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="2" slot="MELODY 2" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="3" slot="MELODY 3" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="4" slot="MELODY 4" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+        <character id="5" slot="MELODY 5" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <description>Example Description</description>
+        </character>
+    </category>
+
+    <!-- VOICES -->
+    <category type="VOICE">
+        <character id="1" slot="VOICE 1" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <lyrics>Put your lyrics here, if any!</lyrics>
+            <description>Example Description</description>
+        </character>
+        <character id="2" slot="VOICE 2" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <lyrics>Put your lyrics here, if any!</lyrics>
+            <description>Example Description</description>
+        </character>
+        <character id="3" slot="VOICE 3" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <lyrics>Put your lyrics here, if any!</lyrics>
+            <description>Example Description</description>
+        </character>
+        <character id="4" slot="VOICE 4" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <lyrics>Put your lyrics here, if any!</lyrics>
+            <description>Example Description</description>
+        </character>
+        <character id="5" slot="VOICE 5" image="temp_polo-sprite.png" color="#7d7d7d">
+            <name>Name</name>
+            <gender>Gender</gender>
+            <age>16</age>
+            <sound>Sound</sound>
+            <lyrics>Put your lyrics here, if any!</lyrics>
+            <description>Example Description</description>
+        </character>
+    </category>
+</lore>

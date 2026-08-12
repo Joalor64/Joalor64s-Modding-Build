@@ -1,0 +1,147 @@
+// Here all versions are located, the same as app.js but this time its apps.js because all versions info is located in this one file
+// To add more versions, copy the versions.v1 and replace with versions.v2, and the same with others (it support more than 9 versions)
+
+versions.v1 = {
+  name: "Template",
+  version: "1",
+  date: "2025",
+  folder: "asset-v1/",
+  background: "game-bck.jpg",
+  gamePicto: "game-picto@2x.png",
+  poloSprite: "polo-sprite.png",
+  homeScreen: "home-screen@2x.jpg",
+  customTitle: true,
+  customVersion: true,
+  poloHoverEffect: false,
+  poloTShirts: false,
+  ambience: "",
+  firstLoopDelay: 300,
+  looptime: 7384,
+  bpm: 90,
+  totalframe: 260,
+  nbpolo: 7,
+  maxrecloop: 24,
+  bonusloopA: true,
+  bonusendloopA: true,
+  letEvents: true,
+  colors: ["#919191", "#5f5f5f", "#4b4b4b", "#373737", "#232323", "#0F0F0F"],
+  format: ["mp3", "mp4", "ld", "hd"],
+  backgroundRadius: "0",
+  pictoRadius: "18%",
+  pictoRowMax: 10,
+  animearray: [
+    {
+      name: "11_red-mungus",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+    {
+      name: "temp_polo",
+      color: "7D7D7D",
+      uniqsnd: true,
+    },
+  ],
+  bonusarray: [
+    {
+      name: "blank",
+      src: "b1-v1-blank-hb",
+      code: [1, 2, 3, 4, 5],
+      sound: "aspire-blank",
+      aspire: "aspire-blank",
+      expire: "",
+      icon: "",
+      svg: '',
+      loop: 1,
+    },
+  ],
+};

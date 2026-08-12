@@ -1,0 +1,42 @@
+{
+    "code": "zh-TW",
+    "name": "繁體中文",
+    "translation": {
+        "pop": {
+            "settingsTitle": "設定",
+            "settingsLang": "語言",
+            "settingsLight": "淺色模式",
+            "settingsFullscreen": "全螢幕",
+            "exitConfirm": "您確定要退出嗎？",
+            "yes": "是",
+            "no": "否",
+            "exit": "退出",
+            "cancel": "取消",
+            "returnToGame": "返回遊戲",
+            "infoTitle": "資訊",
+            "about": "關於",
+            "aboutTxt": "一個用於基於 RMB 的 Incredibox 模組的簡易模組啟動器。",
+            "howTo": "教學",
+            "howToTxt": "在 \"resources/mods/\" 中，建立一個以您的模組名稱命名的資料夾。於其中，加入一個 \"src/\" 資料夾，用於模組檔案（應從 \"resources/app/src\" 中提取）。同時加入 \"icon.png\" 作為模組圖示、\"banner.png\" 作為橫幅，以及包含模組資訊（名稱、作者、版本、說明等）的 \"mod.json\"。然後，開啟啟動器並搜尋您的模組。若一切正確，該模組應會被安裝。若您更新了任何模組檔案，可重新整理模組以實際更新。隨時想返回啟動器，請按 F1。",
+            "credits": "致謝",
+            "creditsTxt": "Mod Launcher 由 Joalor64 開發\n靈感來自 Rem\nIncredibox 由 SO FAR SO GOOD 開發",
+            "version": "版本 ",
+            "searchTitle": "搜尋模組",
+            "searchHint": "搜尋已安裝的模組...",
+            "deleteTitle": "刪除模組",
+            "deleteConfirm1": "您確定要刪除 ",
+            "deleteConfirm2": "此模組",
+            "delete": "刪除",
+            "modInfoTitle": "模組資訊",
+            "modInfoName": "名稱",
+            "modInfoAuthor": "作者",
+            "modInfoDesc": "說明",
+            "modInfoVersion": "模組版本",
+            "preview": "預覽",
+            "confirmRedirectTitle": "您即將離開！",
+            "confirmRedirectTxt": "您即將前往 %{url}！\n是否要繼續？",
+            "noLinkTitle": "無連結",
+            "noLinkTxt": "此模組沒有預覽連結。"
+        }
+    }
+}

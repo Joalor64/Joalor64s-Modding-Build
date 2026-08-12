@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+HOW TO USE IT:
+• <page> tag used to create a new credit page
+• noImage="true/false" if there is no image on the page
+• image="PATH_TO_IMAGE" is the path to the image shown on the page
+• title="TEXT" is the title of the credit page
+• text="TEXT" is the main text of the credit page
+
+FORMATTING:
+• (!line) - new line
+• (!bold/TEXT) - bold text
+• (!underline/TEXT) - underlined text
+• (!italic/text) - italic text
+• (!color/#HEX/TEXT) - colored text
+• (!emoji/EMOJI.png) - emoji
+• (!size/XXpx/TEXT) - text size
+• (!youtube/VIDEO_URL) - youtube video
+• (!button/#HEX/ICON.png/LINK/TEXT) - button
+• (!hr) - horizontal line
+• (!hyperlink/LINK/TEXT) - make a text that open a link after clicking
+• (!img/image.png) - put image inside credits
+• (!gradient/#HEX1/#HEX2/TEXT) - gradient text from left to right
+
+PAGE STYLES (optional):
+• pageStyle="0" (default) - Image on top, text below
+• pageStyle="1" - Image on left, text on right
+• pageStyle="2" - Image on right, text on left
+• pageStyle="3" - Image only
+-->
+
+<credits>
+  <page
+    noImage="true"
+    image=""
+    title="Credit Page"
+    text="You can edit this page inside (!italic/mod-credits/credits.xml file.)(!line) You can add more pages by copying the page tag and pasting it below the last page tag." />
+  <page
+    noImage="false"
+    image="mod-credits/02c-joalor64@2x.png"
+    title="Modding build by Joalor64!"
+    text="This is a modified version of RMB created by me, (!color/#8b4ee0/(!bold/Joalor64))!(!line)Check out (!hyperlink/https://joalor64.github.io/projects//my other stuff) too! (!line)(!line)(!hr)(!line)(!button/#8f1e22/social_youtube.png/https://www.youtube.com/@joalor64//YouTube) (!button/#4C93FF/social_bilibili.png/https://space.bilibili.com/3546728714209872//BiliBili) (!button/#8791F6/social_discord.png/https://discord.gg/rd7ZnnfN5c//Discord) (!button/#3632ea/social_joalorsite.png/https://joalor64.github.io//Website)" />
+  <page
+    noImage="false"
+    image="mod-credits/03c-remmie@2x.png"
+    title="Original modding build by Rem!"
+    text="Special thanks to (!color/#64b1e8/(!bold/Rem)) for creating the original modding build! Support her work and explore more on her channel and website! (!line)(!line)(!hr)(!line) (!button/#8f1e22/social_youtube.png/https://www.youtube.com/@rin.Incredibox//YouTube) (!button/#8791F6/social_discord.png/https://discord.gg/QUGGumuBcd//Discord) (!button/#c1137a/social_incredirem.png/https://incredirem.com//Website) (!button/#e2811f/social_kofi.png/https://ko-fi.com/remincredibox/Kofi) (!button/#183663/social_shop.png/https://my-store-ea915a.creator-spring.com//Merch)"
+  />
+  <page
+    noImage="false"
+    image="mod-credits/04c-sfsg@2x.png"
+    title="Incredibox by SO FAR SO GOOD!"
+    text="And of course, thanks to the official developers of Incredibox, (!bold/Allan), (!bold/Romain) and (!bold/Paul)! Without them, this project wouldn't exist! (!line)(!line)(!hr)(!line)Buy the official game for more fun and to support the team!(!line)(!line)(!button/#4A4A4A/sfsg-credits-button.png/https://www.incredibox.com//Incredibox Website)(!button/#4A4A4A/sfsg-credits-button.png/https://www.incredibox.com/info/store/Buy Incredibox)"
+  />
+</credits>
+
+<!--You
+can edit or change my credits, but please remember to credit me somewhere as well for using my
+build! Thank you! ✨-->

@@ -1,0 +1,57 @@
+{
+    "name": "Modbox",
+    "date": "2025-05-19",
+    "looptime": 8000,
+    "bpm": 120,
+    "totalframe": 384,
+    "bonusloopA": true,
+    "bonusendloopA": false,
+
+    "colors":["#D8A365", "#BA7B3D", "#A16224", "#6A3501", "#422101", "#201200"],
+
+    "useModboxAnimeNaming": false,
+    "pictoRowMax": 7,
+
+    "animearray": [
+        {
+            "name": "drum1_kick",
+            "color": "#E5A90E",
+            "uniqsnd": false
+        },
+        { "name": "drum2_snare", "color": "#E5A90E", "uniqsnd": false },
+        { "name": "drum3_touti", "color": "#E5A90E", "uniqsnd": true },
+        { "name": "drum4_charley", "color": "#E5A90E", "uniqsnd": true },
+        { "name": "drum5_chatom", "color": "#E5A90E", "uniqsnd": false },
+
+        { "name": "effect1_bass", "color": "#0CB6CB", "uniqsnd": false },
+        { "name": "effect2_enigmatic","color": "#0CB6CB", "uniqsnd": true },
+        { "name": "effect3_cry", "color": "#0CB6CB", "uniqsnd": true },
+        { "name": "effect4_odoyouno", "color": "#0CB6CB", "uniqsnd": true },
+        { "name": "effect5_oua", "color": "#0CB6CB", "uniqsnd": true },
+
+        { "name": "melo1_toun", "color": "#F42828", "uniqsnd": false },
+        { "name": "melo2_flute", "color": "#F42828", "uniqsnd": false },
+        { "name": "melo3_neou", "color": "#F42828", "uniqsnd": false }
+    ],
+
+    "bonusarray": [
+        { 
+            "title": "Love",
+            "name": "b1-love",
+            "code": [1,2,3,4,5],
+            "sound": "bonus1_love",
+            "predrop": "bonus_predrop",
+            "loop": 1
+        }
+    ],
+
+    "credit":{
+        "crewname": "ARP Modders",
+        "process":["Allan", "Romain", "Paul"],
+        "music":["Paul"],
+        "design":["Romain"],
+        "animation":["Allan"],
+        "thanks": "To the best community ever",
+        "modio": "https://mod.io/u/joalor64"
+    }
+}

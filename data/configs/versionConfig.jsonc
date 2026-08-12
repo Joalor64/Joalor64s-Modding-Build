@@ -1,0 +1,27 @@
+// Version-specific overrides (you can add more than one)
+// {STR}: prefix → tells the game to use the language system (STR)
+// Example:
+//   "{STR}:txt.randomText" → STR("txt.randomText")
+//
+// If no prefix is used, the value is treated as raw text.
+//
+// Fallbacks are handled automatically in code.
+{
+	// Example
+	// Version-specific overrides (you can add more than one)
+	/*
+	"v1": {
+		"autoModeTitle": "Uhhh Uhh Hi",
+		"autoModeText": "Did you see that &#128064;",
+		"useCustomDJText": true
+	},
+	"v2": {
+		"autoModeTitle": "No Custom DJ Test",
+		"autoModeText": "No Custom Fonts ONG",
+		"useCustomDJText": false
+	},
+	"v3": {
+		"autoModeText": "testing"
+	}
+	*/
+}
