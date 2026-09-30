@@ -1963,6 +1963,8 @@ hr {
 	pointer-events: none;
 	opacity: 0;
 	transition: opacity 0.15s ease-out;
+	background-size: cover;
+	background-position: center;
 }
 
 #box-top #box-bt.open #box-bt2 {
@@ -1975,6 +1977,8 @@ hr {
 	pointer-events: auto;
 	opacity: 1;
 	transition: opacity 0.2s ease-out 0.15s;
+	background-size: cover;
+	background-position: center;
 }
 
 #box-top #box-bt1,
@@ -2743,6 +2747,8 @@ hr {
 	position: absolute;
 	top: var(--box-top-height-pct);
 	bottom: var(--box-bottom-height-pct);
+	left: 50%;
+	transform: translateX(-50%);
 	width: 100%;
 	height: auto;
 	background-size: cover;
@@ -2886,8 +2892,8 @@ video::-webkit-media-controls {
 	align-items: flex-end;
 	top: var(--box-top-height-pct);
 	bottom: var(--box-bottom-height-pct);
-	left: 0;
-	right: 0;
+	left: 50%;
+	transform: translateX(-50%);
 	width: 100%;
 	height: auto;
 	overflow: hidden;
@@ -3326,6 +3332,7 @@ video::-webkit-media-controls {
 	-ms-flex-align: center;
 	align-items: center;
 	opacity: 1;
+	--picto-margin: 7px;
 }
 
 .bottomSlide #box-bottom #box-picto {
@@ -3340,15 +3347,20 @@ video::-webkit-media-controls {
 	-ms-flex-align: center;
 	align-items: center;
 	-ms-flex-pack: justify;
-	justify-content: space-between;
+	justify-content: center;
 	width: 95%;
 }
 
-#box-bottom #box-picto .pictoline.top {
+#box-bottom #box-picto .pictoline.top,
+#box-bottom #box-picto .pictoline.bot {
+	margin: 0;
+}
+
+#box-bottom #box-picto.stagger .pictoline.top {
 	margin: 0 3% 0 0;
 }
 
-#box-bottom #box-picto .pictoline.bot {
+#box-bottom #box-picto.stagger .pictoline.bot {
 	margin: 0 0 0 3%;
 }
 
@@ -6667,8 +6679,8 @@ progress::-moz-progress-bar {
 		top: -10px;
 	}
 
-	#box-bottom #box-picto .picto {
-		margin: 4px;
+	#box-bottom #box-picto {
+		--picto-margin: 4px;
 	}
 }
 
@@ -7246,6 +7258,10 @@ progress::-moz-progress-bar {
 
 .polo-lyrics {
 	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
 	min-width: 280px;
 	max-width: 285px;
 	margin-left: 5px;
@@ -7266,13 +7282,29 @@ progress::-moz-progress-bar {
 }
 
 .polo-lyrics .lyrics-text {
-	display: inline-block;
+	display: block;
 	text-align: center;
+	line-height: 1.1;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
 	font-synthesis: none;
 	font-kerning: normal;
+}
+
+.polo-lyrics .lyrics-primary {
+	font-weight: 700;
+	letter-spacing: 0.02em;
+}
+
+.polo-lyrics .lyrics-translation {
+	display: block;
+	font-size: 0.58em;
+	line-height: 1.15;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	opacity: 0.75;
+	color: rgba(255, 255, 255, 0.82);
 }
 
 .polo-lyrics.show {
@@ -7469,41 +7501,203 @@ progress::-moz-progress-bar {
 	pointer-events: none
 }
 
+.toast-container {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 999;
+}
+
+.toast {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	background: var(--col-general-bck);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border-left: 4px solid var(--col-green1);
+	border-radius: 4px;
+	padding: 18px 20px;
+	width: 320px;
+	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+	transform: translateX(400px);
+	opacity: 0;
+	transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.darkmode .toast {
+	color: #ccc;
+}
+
+.toast.show {
+	transform: translateX(0);
+	opacity: .8;
+}
+
+.toast.exit {
+	transform: translateX(400px) translateY(var(--exit-translate-y, 0px));
+	opacity: 0;
+}
+
+.toast-content {
+	display: flex;
+	align-items: flex-start;
+}
+
+.toast-icon {
+	margin-right: 12px;
+	font-size: 20px;
+}
+
+.toast-message {
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.toast-progress {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 4px;
+	background: var(--col-green1);
+	width: 100%;
+	transform-origin: left;
+	animation: progress linear forwards;
+}
+
+@keyframes progress {
+	from {
+		transform: scaleX(1);
+	}
+
+	to {
+		transform: scaleX(0);
+	}
+}
+
+.speech-bubble {
+	position: absolute;
+	left: 50%;
+	top: 65%;
+	margin-bottom: 8px;
+	z-index: 999;
+	width: 150%;
+	padding: 10px 14px;
+	background: rgba(0, 0, 0, 0.85);
+	border-radius: 12px;
+	color: #fff;
+	font-size: 14px;
+	line-height: 1.4;
+	pointer-events: none;
+	opacity: 0;
+	transform: translateX(-50%) translateY(10px);
+	transition: opacity 0.3s ease, transform 0.3s ease;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+	white-space: normal;
+	word-break: break-word;
+}
+
+.speech-bubble::after {
+	content: '';
+	position: absolute;
+	top: -8px;
+	left: 50%;
+	margin-left: -8px;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 8px solid rgba(0, 0, 0, 0.85);
+}
+
+.speech-bubble.show {
+	opacity: 1;
+	transform: translateX(-50%) translateY(0);
+}
+
+.bubble-content {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.bubble-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+	flex-shrink: 0;
+}
+
+.bubble-text {
+	flex: 1;
+	word-break: break-word;
+}
+
 .waiting-picto {
 	position: absolute;
-	display: none;
+	left: calc(50% - 30%);
+	bottom: 8%;
+	width: 60%;
+	height: 0;
+	padding-top: 60%;
+	box-sizing: border-box;
+	border-radius: 18%;
 	background-size: auto 200%;
-	left: -20px;
-	width: 34px;
-	height: 34px;
-	border-radius: 18%
+	filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, .8));
+	z-index: auto;
+	transition: opacity .4s ease-out;
+	animation: showWaitingPicto .7s var(--easeOutBack) 0s
 }
 
-@keyframes load-waiting-picto {
+.waiting-picto-ring {
+	position: absolute;
+	inset: 0;
+	top: -15%;
+	left: -15%;
+	width: 45%;
+	height: 45%;
+	border-radius: 50%;
+	pointer-events: none;
+	z-index: 1;
+	background: conic-gradient(#fff 100%, transparent 100%);
+	-webkit-mask: radial-gradient(circle closest-side, transparent calc(100% - 50%), #000 calc(100% - 50%));
+	mask: radial-gradient(circle closest-side, transparent calc(100% - 50%), #000 calc(100% - 50%));
+}
+
+@keyframes showWaitingPicto {
 	0% {
-		transform: scale(0) rotate(0deg);
+		opacity: 0;
+		transform: scale(0) rotate(0);
 	}
 
-	40% {
-		transform: scale(1.05) rotate(-3deg);
+	70% {
+		opacity: 1;
+		transform: scale(1.2) rotate(360deg);
 	}
 
-	60% {
-		transform: scale(1) rotate(0deg);
+	100% {
+		opacity: 1;
+		transform: scale(1) rotate(360deg);
+		cursor: pointer
 	}
 }
 
-@keyframes down-waiting-picto {
+@keyframes removeWaitingPicto {
 	0% {
-		transform: scale(1) rotate(0deg);
+		opacity: 1;
+		transform: scale(1) rotate(0);
 	}
 
-	40% {
-		transform: scale(1.05) rotate(-3deg);
+	70% {
+		opacity: 1;
+		transform: scale(1.2) rotate(-360deg);
 	}
 
-	60% {
-		transform: scale(0) rotate(0deg);
+	100% {
+		opacity: 0;
+		transform: scale(.7) rotate(0);
+		cursor: pointer
 	}
 }
 

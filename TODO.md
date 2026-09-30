@@ -1,9 +1,8 @@
 # To-Dos
 ## V0.2.0 Release
 ### High Priority
-* [ ] Lyrics Translations
-* [ ] Improve Quick-swapping
-* [ ] Image for "box-canvas"
+* [X] Lyrics Translations
+* [X] Improve Quick-swapping
 * [ ] Delayed Removal for Polos
 * [ ] Customizable Picto Positions
 * [ ] Customizability for Lore Display

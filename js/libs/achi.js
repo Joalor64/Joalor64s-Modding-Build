@@ -85,7 +85,7 @@ function unlockAchievement(e, t) {
         i.status = "unlocked";
         localStorage.setItem(`achievements_${e}`, JSON.stringify(n));
         showAchievementNotification(i.name, i.icon, i.description);
-        displayAchievements(e);
+        displayAchievements(e, window.currentAchievementFilter || "all");
         localStorage.setItem("achiNotificationDot", achiNotificationDot);
         achiNotificationDot += 1;
         localStorage.setItem("achiNotificationDot", achiNotificationDot);
@@ -119,39 +119,51 @@ function preloadAchievementIcons(modID) {
         img.src = `img/mod_achievements/${achievements[id].icon}`;
     }
 }
-function displayAchievements(e) {
+function displayAchievements(e, filter = window.currentAchievementFilter || "all") {
     let t = JSON.parse(localStorage.getItem(`achievements_${e}`)) || {};
-    let n = document.getElementById("achievements-list");
-    n.innerHTML = "";
-    if (Object.keys(t).length !== 0) {
-        for (let e in t) {
-            let n = t[e];
-            let k = n.icon.lastIndexOf('.');
+    let list = document.getElementById("achievements-list");
+    if (!list) {
+        return;
+    }
+    list.innerHTML = "";
+    const entries = Object.entries(t).filter(([key, value]) => {
+        if (filter === "complete") {
+            return value && value.status === "unlocked";
+        }
+        if (filter === "incomplete") {
+            return value && value.status !== "unlocked";
+        }
+        return true;
+    });
+    if (entries.length !== 0) {
+        for (let [key, value] of entries) {
+            let item = value;
+            let k = item.icon.lastIndexOf('.');
             let s = document.createElement("div");
             s.classList.add("achievement");
 
-            let l = n.status === "locked";
-            let o = `img/mod_achievements/${n.icon}`;
+            let l = item.status === "locked";
+            let o = `img/mod_achievements/${item.icon}`;
 
-            const lockedIcon = `img/mod_achievements/${n.icon.substring(0, k)}-locked${n.icon.substring(k)}`;
+            const lockedIcon = `img/mod_achievements/${item.icon.substring(0, k)}-locked${item.icon.substring(k)}`;
             const mainIcon = l ? `background-image: url('${lockedIcon}'), url('${o}');` : `background-image: url('${o}');`;
 
             let c = l ? "grayscale" : "";
-            let a = l && n.type === "hidden" ? "???" : n.name;
-            let r = l && n.type === "hidden" ? "???" : n.description;
+            let a = l && item.type === "hidden" ? "???" : item.name;
+            let r = l && item.type === "hidden" ? "???" : item.description;
 
             s.innerHTML = `
                 <div class="achievement-icon ${c}" style="${mainIcon} background-size: cover;"></div>
                 <div class="achievement-info">
                     <div class="title">${a}</div>
                     <div class="text">${r}</div>
-                    ${n.type === "progress" ? `<progress id="progress-${e}" value="${n.progress}" max="${n.maxProgress}"></progress>` : ""}
+                    ${item.type === "progress" ? `<progress id="progress-${key}" value="${item.progress}" max="${item.maxProgress}"></progress>` : ""}
                 </div>
             `;
-            i.appendChild(s);
+            list.appendChild(s);
         }
     } else {
-        n.innerHTML = `<p>${STR("extra.txt.noAchiFound")}</p>`;
+        list.innerHTML = `<p>${STR("extra.txt.noAchiFound")}</p>`;
     }
 }
 const style = document.createElement("style");
@@ -163,5 +175,5 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 document.getElementById("tab-myachi").addEventListener("click", function () {
-    displayAchievements(RegisterMod);
+    displayAchievements(RegisterMod, window.currentAchievementFilter || "all");
 });

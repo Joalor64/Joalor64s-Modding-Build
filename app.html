@@ -363,12 +363,30 @@
 				</div>
 				<div class="pagebox" id="box-myachi">
 					<div class="tab-filter">
-						<div class="bt with-icn color" id="bt-achi-counter">
+						<div class="bt with-icn color active" id="bt-achi-all" data-achievement-filter="all">
 							<div class="bck">
 								<svg class="icn-svg">
 									<use xlink:href="#ic-trophy"></use>
 								</svg>
-								<div class="txt" id="achievement-counter">Loading...</div>
+								<div class="txt" id="achievement-counter-all">All: 0</div>
+							</div>
+							<div class="hitzone"></div>
+						</div>
+						<div class="bt with-icn color" id="bt-achi-complete" data-achievement-filter="complete">
+							<div class="bck">
+								<svg class="icn-svg">
+									<use xlink:href="#ic-check"></use>
+								</svg>
+								<div class="txt" id="achievement-counter-complete">Complete: 0</div>
+							</div>
+							<div class="hitzone"></div>
+						</div>
+						<div class="bt with-icn color" id="bt-achi-incomplete" data-achievement-filter="incomplete">
+							<div class="bck">
+								<svg class="icn-svg">
+									<use xlink:href="#ic-lock"></use>
+								</svg>
+								<div class="txt" id="achievement-counter-incomplete">Incomplete: 0</div>
 							</div>
 							<div class="hitzone"></div>
 						</div>
@@ -1054,6 +1072,7 @@
 	<script src="js/libs/EasePack.min.js"></script>
 	<script src="js/libs/ScrollToPlugin.min.js"></script>
 	<script src="js/runners/flagsLoader.js"></script>
+	<script src="lang/lang.js"></script>
 	<script src="js/script.min.js"></script>
 	<script src="js/runners/bonusRunner.js"></script>
 	<script src="js/apps.js"></script>

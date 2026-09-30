@@ -1,0 +1,22 @@
+var languageListe = {
+    "en-US": "English",
+    fr: "Français",
+    es: "Español",
+    "pt-BR": "Português",
+    it: "Italiano",
+    de: "Deutsch",
+    no: "Norsk",
+    pl: "Polski",
+    uk: "Українська",
+    ru: "Русский",
+    ar: "العربية",
+    tr: "Türkçe",
+    ko: "한국어",
+    ja: "日本語",
+    "zh-CN": "简体中文",
+    "zh-TW": "繁體中文",
+    "hi-IN": "हिंदी",
+    th: "ไทย",
+    vi: "Tiếng Việt",
+    id: "Indonesia"
+};

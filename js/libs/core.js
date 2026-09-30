@@ -1017,9 +1017,30 @@ function OpenModCredits() {
     });
     loadCredits();
 }
-function loadCredits() {
+async function fileExists(url) {
+    try {
+        const response = await fetch(url, { method: 'HEAD' });
+        if (response.ok) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.error('An error occurred:', error);
+        return false;
+    }
+}
+async function loadCredits() {
     const slider = document.querySelector(".gallery-container .gallery-slider");
-    fetch(((PerVersionCredits && getHtmlName() == "app.html") ? `asset-v${getVersionFromURL()}/credits.xml` : "mod-credits/credits.xml"))
+    let perVersionCreditsPath = `asset-v${getVersionFromURL()}/credits.xml`;
+
+    let usePerVersion = PerVersionCredits
+        && getHtmlName() === "app.html"
+        && await fileExists(perVersionCreditsPath);
+
+    let creditsPath = usePerVersion ? perVersionCreditsPath : "mod-credits/credits.xml";
+
+    fetch(creditsPath)
         .then(r => {
             if (!r.ok) throw new Error("File missing");
             return r.text();
@@ -1966,8 +1987,8 @@ function adjustPictoWidth() {
     });
 }
 function modLoaded() {
-    initPictoSize();
     initUpdatedPictoIcons();
+    initPictoSize();
     displayNewMods();
     checkAndShowUpdateNotice(RegisterMod);
     app.recmaxloop = app.maxrecloop;
@@ -3565,7 +3586,29 @@ function poloLyrics(poloId, text, duration, color, font, size, shake = false) {
     lyricsContainer.className = "polo-lyrics";
     lyricsContainer.setAttribute("data-lyrics-polo", poloId);
 
-    lyricsContainer.innerHTML = `<span class="lyrics-text">${text}</span>`;
+    let lText1;
+    let lText2;
+
+    if (Array.isArray(text)) {
+        lText1 = text[0] || "";
+        lText2 = text[1] || "";
+    } else {
+        lText1 = text || "";
+        lText2 = "";
+    }
+
+    const mainLine = document.createElement("span");
+    mainLine.className = "lyrics-text lyrics-primary";
+    mainLine.textContent = lText1;
+    lyricsContainer.appendChild(mainLine);
+
+    if (lText2) {
+        const subLine = document.createElement("span");
+        subLine.className = "lyrics-text lyrics-translation";
+        subLine.textContent = `(${lText2})`;
+        lyricsContainer.appendChild(subLine);
+    }
+
     lyricsContainer.style.color = color || "white";
 
     if (font) {
@@ -3599,22 +3642,30 @@ function poloLyrics(poloId, text, duration, color, font, size, shake = false) {
             document.head.appendChild(link);
         }
 
-        const lyricsText = lyricsContainer.querySelector('.lyrics-text');
-        lyricsText.style.fontFamily = `"${fontName}", system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`;
-        lyricsText.style.fontWeight = 'normal';
-        lyricsText.style.fontStyle = 'normal';
+        const allLyricsText = lyricsContainer.querySelectorAll('.lyrics-text');
+        allLyricsText.forEach(line => {
+            line.style.fontFamily = `"${fontName}", system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`;
+            line.style.fontWeight = 'normal';
+            line.style.fontStyle = 'normal';
+        });
 
         if (document.fonts && document.fonts.load) {
             document.fonts.load(`1em "${fontName}"`).catch(e => console.warn('Font loading failed:', e));
         }
     } else {
-        lyricsContainer.querySelector('.lyrics-text').style.fontFamily = "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+        const allLyricsText = lyricsContainer.querySelectorAll('.lyrics-text');
+        allLyricsText.forEach(line => {
+            line.style.fontFamily = "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+        });
     }
 
     lyricsContainer.style.fontSize = size ? `${size}px` : "16px";
 
     if (shake) {
-        shakeEffect(lyricsContainer.querySelector('.lyrics-text'));
+        const shakeTarget = lyricsContainer.querySelector('.lyrics-primary') || lyricsContainer.querySelector('.lyrics-text');
+        if (shakeTarget) {
+            shakeEffect(shakeTarget);
+        }
     }
 
     const poloRect = polo.getBoundingClientRect();
@@ -3865,6 +3916,104 @@ function customPopup(popupName, htmlContent, win) {
 function customInfo(text, title) {
     boxDialog.open(text, (title || ""), [STR("bt.gotit")], []);
 }
+function showImagePopup(images, w, h, x, y, duration, fadeIn, fadeOut) {
+    w = w || '90%';
+    h = h || '90%';
+    fadeIn = fadeIn || 0;
+    fadeOut = fadeOut || 0;
+    var isArray = Array.isArray(images);
+    var list = isArray ? images : [images];
+
+    var div = document.createElement('div');
+    div.style.cssText = 'position:fixed;left:' + x + ';top:' + y + ';width:' + w + ';height:' + h + ';transform:translate(-50%,-50%);z-index:9999;opacity:' + (fadeIn ? 0 : 1) + ';transition:opacity ' + fadeIn + 'ms;pointer-events: none;';
+    if (fadeIn) setTimeout(function () { div.style.opacity = '1'; }, 10);
+
+    var img = document.createElement('img');
+    img.src = list[0];
+    img.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block';
+    div.appendChild(img);
+    document.body.appendChild(div);
+
+    if (isArray && list.length > 1) {
+        var frame = 0;
+        var interval = duration / list.length;
+        var timer = setInterval(function () {
+            frame++;
+            if (frame < list.length) {
+                img.src = list[frame];
+            } else {
+                clearInterval(timer);
+            }
+        }, interval);
+    }
+
+    setTimeout(function () {
+        if (fadeOut) {
+            div.style.transition = 'opacity ' + fadeOut + 'ms';
+            div.style.opacity = '0';
+            setTimeout(function () { document.body.removeChild(div); }, fadeOut);
+        } else {
+            document.body.removeChild(div);
+        }
+    }, duration + (fadeIn ? fadeIn : 0));
+}
+function showSpeechBubble(poloid, text, imageUrl, duration) {
+    if (duration === undefined) duration = 6000;
+
+    if (!window._spbWrapped) {
+        window._spbWrapped = true;
+        var origRemovePolo = window.removePolo;
+        window.removePolo = function (polo, delay, immediate) {
+            closeBubble(polo.id);
+            return origRemovePolo(polo, delay, immediate);
+        };
+    }
+
+    const selector = ".polo[data-polo-id='" + poloid + "']";
+    const polo = document.querySelector(selector);
+    if (!polo) {
+        toast.show(`Polo with ID [${poloid}] does not exist`);
+        return;
+    }
+
+    const existingBubble = document.querySelector(`[data-speech-polo="${poloid}"]`);
+    if (existingBubble) {
+        existingBubble.remove();
+    }
+
+    const bubble = document.createElement('div');
+    bubble.className = 'speech-bubble';
+    bubble.setAttribute('data-speech-polo', poloid);
+    bubble.innerHTML = `
+        <div class="bubble-content">
+            <img src="${imageUrl}" alt="avatar" class="bubble-avatar">
+            <span class="bubble-text">${text}</span>
+        </div>
+    `;
+
+    polo.appendChild(bubble);
+
+    requestAnimationFrame(() => {
+        bubble.classList.add('show');
+    });
+
+    setTimeout(() => {
+        closeBubble(poloid);
+    }, duration);
+}
+
+function closeBubble(poloid) {
+    const bubble = document.querySelector(`[data-speech-polo="${poloid}"]`);
+    if (!bubble) return;
+
+    bubble.classList.remove('show');
+    // 等待过渡动画结束后移除 DOM
+    setTimeout(() => {
+        if (bubble.parentElement) {
+            bubble.remove();
+        }
+    }, 300);
+}
 function rightPopup(text, duration = 3) {
     const popup = document.createElement("div");
     popup.className = "mod-right-popup";
@@ -3952,6 +4101,227 @@ function fullPopup(url, d) {
         }, d);
     }
 }
+
+class ToastSystem {
+    constructor() {
+        this.container = null;
+        this.toasts = [];
+        this.spacing = 15;
+        this.initContainer();
+    }
+
+    initContainer() {
+        this.container = document.createElement('div');
+        this.container.className = 'toast-container';
+        document.body.appendChild(this.container);
+    }
+
+    updatePositions() {
+        let y = 20;
+        for (let i = 0; i < this.toasts.length; i++) {
+            const t = this.toasts[i];
+            t.index = i;
+            t.el.dataset.index = i;
+            const height = t.el.offsetHeight || 72;
+            t.el.style.transition = 'bottom 0.25s ease';
+            t.el.style.bottom = `${y}px`;
+            y += height + this.spacing;
+            setTimeout(() => { if (t.el) t.el.style.transition = ''; }, 300);
+        }
+    }
+
+    show(title = "----------------", duration = 3, message = "") {
+        const el = document.createElement('div');
+        el.className = 'toast';
+        const header = title ? `<div class="toast-header"><span class="toast-title">${title}</span></div>` : '';
+        el.innerHTML = `
+            ${header}
+            <div class="toast-content">
+                <div class="toast-message">${message}</div>
+            </div>
+            <div class="toast-progress" style="animation-duration: ${duration}s"></div>
+        `;
+
+        const index = this.toasts.length;
+        el.dataset.index = index;
+
+        const toast = {
+            el,
+            index,
+            durationMs: duration * 1000,
+            remainingMs: duration * 1000,
+            startTime: null,
+            timeoutId: null
+        };
+
+        this.container.appendChild(el);
+        this.toasts.push(toast);
+
+        requestAnimationFrame(() => {
+            this.updatePositions();
+            requestAnimationFrame(() => {
+                toast.startTime = Date.now();
+                toast.timeoutId = setTimeout(() => this.remove(toast), toast.remainingMs);
+                el.classList.add('show');
+            });
+        });
+
+        const progressEl = el.querySelector('.toast-progress');
+        if (progressEl) {
+            const onAnimEnd = () => {
+                progressEl.removeEventListener('animationend', onAnimEnd);
+                this.remove(toast);
+            };
+            progressEl.addEventListener('animationend', onAnimEnd);
+        }
+
+        el.addEventListener('click', () => this.remove(toast));
+
+        el.addEventListener('mouseenter', () => {
+            if (toast.timeoutId) {
+                clearTimeout(toast.timeoutId);
+                toast.timeoutId = null;
+                const elapsed = Date.now() - (toast.startTime || Date.now());
+                toast.remainingMs = Math.max(0, toast.remainingMs - elapsed);
+            }
+            if (progressEl) progressEl.style.animationPlayState = 'paused';
+        });
+        el.addEventListener('mouseleave', () => {
+            if (!toast.timeoutId && toast.remainingMs > 0) {
+                toast.startTime = Date.now();
+                toast.timeoutId = setTimeout(() => this.remove(toast), toast.remainingMs);
+            }
+            if (progressEl) progressEl.style.animationPlayState = 'running';
+        });
+
+        return el;
+    }
+
+    remove(toast) {
+        if (!toast || !toast.el.parentNode) return;
+        if (toast.timeoutId) { clearTimeout(toast.timeoutId); toast.timeoutId = null; }
+
+        toast.el.classList.remove('show');
+        toast.el.classList.add('exit');
+
+        setTimeout(() => {
+            if (toast.el.parentNode) toast.el.remove();
+            this.toasts = this.toasts.filter(t => t !== toast);
+            this.updatePositions();
+        }, 300);
+    }
+
+    clearAll() {
+        for (let i = this.toasts.length - 1; i >= 0; i--) this.remove(this.toasts[i]);
+    }
+}
+const toast = new ToastSystem();
+window.toast = toast;
+
+class waitingPicto {
+    constructor() {
+        this.activeElements = new Map();
+        this.rafId = null;
+        this._tick = this._tick.bind(this);
+    }
+
+    show(poloId, pictoId) {
+        if (null == poloId) return null;
+        const selector = ".polo[data-polo-id='" + poloId + "']";
+        const poloDiv = document.querySelector(selector);
+        if (!poloDiv) return null;
+        const elId = 'picto' + pictoId;
+        let el = poloDiv.querySelector('#' + elId);
+        if (el) return el;
+
+        el = document.createElement('div');
+        el.className = 'waiting-picto';
+        el.id = elId;
+        el.dataset.poloId = poloId;
+        el.dataset.pictoId = pictoId;
+
+        const color = `#${app.animearray[pictoId].color.replace('##', '#') || 'ffffff'}`;
+
+        const ring = document.createElement('div');
+        ring.className = 'waiting-picto-ring';
+        el.appendChild(ring);
+
+        el.style.backgroundImage = `url(${listImages["gamePicto"]["src"]})`;
+        el.style.backgroundPosition = `calc((100% / ${nbSound - 1}) * ${pictoId}) 0`;
+        poloDiv.appendChild(el);
+
+        const initialRemain = typeof timeremain !== 'undefined' ? timeremain : (typeof loopDuration !== 'undefined' ? loopDuration : 1);
+        this.activeElements.set(elId, { el, ring, color, initialRemain });
+        if (!this.rafId) this._startTick();
+
+        return el;
+    }
+
+    remove(poloId, pictoId) {
+        if (null == poloId) return;
+        const selector = ".polo[data-polo-id='" + poloId + "']";
+        const poloDiv = document.querySelector(selector);
+        if (!poloDiv) return;
+        const elId = 'picto' + pictoId;
+        const el = poloDiv.querySelector('#' + elId);
+        if (!el) return;
+
+        this.activeElements.delete(elId);
+        if (this.activeElements.size === 0) this._stopTick();
+
+        try {
+            const animationName = 'removeWaitingPicto';
+            el.style.animationName = animationName;
+            el.style.animationDuration = '.7s';
+            el.style.animationFillMode = 'forwards';
+
+            const onEnd = () => {
+                el.removeEventListener('animationend', onEnd);
+                if (el.parentNode) el.parentNode.removeChild(el);
+            };
+
+            el.addEventListener('animationend', onEnd);
+
+            setTimeout(() => {
+                if (el.parentNode) {
+                    try { el.parentNode.removeChild(el); } catch (e) { }
+                }
+            }, 900);
+        } catch (e) {
+            if (el.parentNode) el.parentNode.removeChild(el);
+        }
+    }
+
+    _startTick() {
+        this.rafId = requestAnimationFrame(this._tick);
+    }
+
+    _stopTick() {
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+            this.rafId = null;
+        }
+    }
+
+    _tick() {
+        const remain = typeof timeremain !== 'undefined' ? timeremain : 0;
+
+        for (const item of this.activeElements.values()) {
+            if (item.ring) {
+                const progress = item.initialRemain > 0
+                    ? Math.max(0, Math.min(1, remain / item.initialRemain))
+                    : 0;
+                const donePct = (1 - progress) * 100;
+                item.ring.style.background =
+                    `conic-gradient(transparent ${donePct}%, ${item.color} ${donePct}%)`;
+            }
+        }
+
+        this.rafId = requestAnimationFrame(this._tick);
+    }
+}
+const waitingPictoInstance = new waitingPicto();
+
 var defaultSNTVolUP = "sound/volume/plus.wav";
 var defaultSNTVolDOWN = "sound/volume/minus.wav";
 var defaultSNTVolMAX = "sound/volume/max.wav";

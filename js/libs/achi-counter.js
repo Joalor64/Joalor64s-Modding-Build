@@ -18,24 +18,64 @@
 			return 0;
 		}
 	}
+	function getIncompleteCount(modName) {
+		try {
+			const ach = JSON.parse(localStorage.getItem(`achievements_${modName}`)) || {};
+			const total = Object.keys(ach).length;
+			const complete = Object.values(ach).filter(a => a && a.status === "unlocked").length;
+			return Math.max(total - complete, 0);
+		} catch (e) {
+			return 0;
+		}
+	}
 	function updateAchievementCounter(modName) {
 		try {
-			const el = document.getElementById("achievement-counter");
-			if (!el) {
-				return;
-			}
 			const total = getAchievementCount(modName);
-			const unlocked = getUnlockedCount(modName);
-			el.textContent = STR("extra.txt.achiFinished").replace("%{unlocked}", unlocked).replace("%{total}", total);
+			const complete = getUnlockedCount(modName);
+			const incomplete = getIncompleteCount(modName);
+			const allEl = document.getElementById("achievement-counter-all");
+			const completeEl = document.getElementById("achievement-counter-complete");
+			const incompleteEl = document.getElementById("achievement-counter-incomplete");
+			if (allEl) {
+				allEl.textContent = `All: ${total}`;
+			}
+			if (completeEl) {
+				completeEl.textContent = `Complete: ${complete}`;
+			}
+			if (incompleteEl) {
+				incompleteEl.textContent = `Incomplete: ${incomplete}`;
+			}
 		} catch (e) {
 			if (console && console.warn) {
 				console.warn(e);
 			}
 		}
 	}
+	function setAchievementFilter(category) {
+		window.currentAchievementFilter = category || "all";
+		const buttons = document.querySelectorAll("[data-achievement-filter]");
+		buttons.forEach(button => {
+			const isActive = button.dataset.achievementFilter === window.currentAchievementFilter;
+			button.classList.toggle("active", isActive);
+		});
+		if (window.displayAchievements) {
+			window.displayAchievements(RegisterMod, window.currentAchievementFilter);
+		}
+	}
 	window.getAchievementCount = getAchievementCount;
 	window.getUnlockedCount = getUnlockedCount;
+	window.getIncompleteCount = getIncompleteCount;
 	window.updateAchievementCounter = updateAchievementCounter;
+	window.setAchievementFilter = setAchievementFilter;
+	try {
+		const filterButtons = document.querySelectorAll("[data-achievement-filter]");
+		filterButtons.forEach(button => {
+			button.addEventListener("click", function () {
+				setAchievementFilter(this.dataset.achievementFilter);
+			});
+		});
+		setAchievementFilter("all");
+	} catch (e) { }
 	function wrapFunction(objName, fnName, cb) {
 		try {
 			const orig = window[fnName];
