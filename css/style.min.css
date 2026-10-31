@@ -2920,10 +2920,7 @@ video::-webkit-media-controls {
 #game #box-stage #clouds {
 	padding-top: 100px;
 	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	inset: 0;
 	width: 100%;
 	height: 100%;
 	pointer-events: none;
@@ -2931,40 +2928,57 @@ video::-webkit-media-controls {
 }
 
 .cloud {
-	width: 200px;
-	height: 30px;
-	background: var(--cloud-color, #fff);
-	border-radius: 200px;
 	position: absolute;
+	width: 200px;
+	height: 60px;
 	top: var(--cloud-top, 10%);
 	left: 100%;
 	opacity: var(--cloud-opacity, 0.8);
 	transform: scale(var(--cloud-scale, 1));
+	transform-origin: center center;
 	animation: moveclouds var(--cloud-duration, 20s) linear var(--cloud-delay, 0s) infinite;
 	animation-direction: var(--cloud-direction, normal);
-	will-change: transform;
+	will-change: transform, opacity;
+	isolation: isolate;
+}
+
+#clouds.fluffy .cloud {
+	height: 80px;
+	background: none;
+	--c: var(--cloud-color, #fff);
+	background-image:
+		radial-gradient(closest-side, var(--c) 99%, transparent 100%),
+		radial-gradient(closest-side, var(--c) 99%, transparent 100%),
+		radial-gradient(closest-side, var(--c) 99%, transparent 100%),
+		radial-gradient(closest-side, var(--c) 99%, transparent 100%),
+		radial-gradient(closest-side, var(--c) 99%, transparent 100%);
+	background-repeat: no-repeat;
+	background-position:
+		calc(10% * var(--puff-a, 1)) 65%,
+		30% calc(40% * var(--puff-b, 1)),
+		55% 30%,
+		78% 55%,
+		92% 70%;
+	background-size:
+		45% 70%,
+		50% 95%,
+		55% 100%,
+		50% 85%,
+		40% 60%;
+	filter: blur(6px) drop-shadow(0 2px 4px color-mix(in srgb, var(--cloud-color, #fff) 40%, transparent));
+}
+
+#clouds:not(.fluffy) .cloud {
+	height: 30px;
+	background: var(--cloud-color, #fff);
+	border-radius: 200px;
+	filter: blur(2px);
 }
 
 #clouds.fluffy .cloud::before,
 #clouds.fluffy .cloud::after {
-	content: '';
-	position: absolute;
-	background: inherit;
-	border-radius: 50%;
-}
-
-#clouds.fluffy .cloud::before {
-	width: 80px;
-	height: 80px;
-	top: -35px;
-	left: 20px;
-}
-
-#clouds.fluffy .cloud::after {
-	width: 60px;
-	height: 60px;
-	top: -25px;
-	left: 90px;
+	content: none;
+	display: none;
 }
 
 @keyframes moveclouds {
@@ -7701,316 +7715,111 @@ progress::-moz-progress-bar {
 	}
 }
 
-#lore-image {
-	width: auto;
-	max-width: 80%;
-	max-height: 30vh;
-	object-fit: contain;
-	margin-bottom: 12px;
-}
-
-#lore-canvas {
-	object-fit: contain;
-	margin-left: 23%;
-	margin-bottom: -37px;
-}
-
-#lore-overlay {
-	position: fixed;
-	inset: 0;
-	background: rgba(0, 0, 0, 0);
-	backdrop-filter: blur(0px);
-	z-index: 9999;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 20px;
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 0.25s ease, backdrop-filter 0.25s ease, background 0.25s ease;
-}
-
-#lore-overlay.show {
-	background: rgba(0, 0, 0, 0.8);
-	backdrop-filter: blur(6px);
-	opacity: 1;
-	pointer-events: auto;
-}
-
-#lore-popup {
+#box-bottom #box-picto .pictoline.custom-pos {
+	display: block;
+	position: relative;
 	width: 100%;
-	max-width: 720px;
-	padding: 20px;
-	border-radius: 16px;
-	background-color: #1e1e1e;
-	color: #ffffff;
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	box-sizing: border-box;
-	max-height: 80vh;
-	overflow: auto;
-	transform: scale(0.96);
-	opacity: 0;
-	transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-#lore-overlay.show #lore-popup {
-	transform: scale(1);
-	opacity: 1;
-}
-
-#lore-description {
-	font-size: 14px;
-	line-height: 1.5;
-	padding: 0 12px;
-	margin-bottom: 10px;
-	text-align: center;
-}
-
-.darkmode #lore-description {
-	color: #ccc;
-}
-
-.darkmode .lore-info {
-	color: #ccc;
-}
-
-.lore-btn {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 44px;
-	height: 44px;
-	border-radius: 50%;
-	background: #444;
-	border: none;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	color: #fff;
-	line-height: 0;
-}
-
-.lore-btn .bck {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.lore-btn .icn-svg {
-	width: 30px;
-	height: 30px;
-	fill: currentColor;
-	color: inherit;
-	stroke-width: 1.1px;
-}
-
-.lore-btn:hover {
-	background-color: #555555;
-}
-
-.lore-btn-prev {
-	left: -22px;
-}
-
-.lore-btn-next {
-	right: -22px;
-}
-
-.lore-body {
-	width: 100%;
-	flex: 1 1 auto;
-	min-height: 0;
-	overflow: auto;
-}
-
-.lore-lyrics-toggle {
-	display: inline-block;
-	margin: 8px 0 6px;
-	padding: 6px 10px;
-	font-size: 13px;
-	background: rgba(255, 255, 255, 0.02);
-	border: 1px solid rgba(255, 255, 255, 0.04);
-	color: #ccc;
-	border-radius: 10px;
-	cursor: pointer;
-}
-
-.lore-lyrics-toggle:hover {
-	background: rgba(255, 255, 255, 0.04);
-}
-
-.lore-lyrics-toggle:focus {
-	outline: 2px solid rgba(255, 255, 255, 0.12);
-	outline-offset: 2px;
-}
-
-@media (max-width: 600px) {
-	.lore-lyrics-toggle {
-		font-size: 12px;
-		padding: 6px 8px;
-	}
-}
-
-@media (min-width: 900px) {
-	#lore-popup {
-		max-width: 720px;
-		padding: 24px;
-	}
-
-	#lore-image {
-		max-height: 34vh;
-		max-width: 70%;
-	}
-
-	#lore-lyrics {
-		max-height: 30vh;
-	}
-}
-
-@media (max-width: 600px) {
-	#lore-popup {
-		width: 90%;
-		padding: 12px;
-		border-radius: 14px;
-	}
-
-	#lore-name {
-		font-size: 18px;
-		margin-bottom: 6px;
-	}
-
-	#lore-image {
-		max-height: 22vh;
-		margin-bottom: 12px;
-	}
-
-	#lore-info,
-	#lore-sound {
-		font-size: 13px;
-		margin-bottom: 8px;
-	}
-
-	#lore-description {
-		font-size: 14px;
-		padding: 0 6px;
-		margin-bottom: 14px;
-		text-align: center;
-	}
-
-	#lore-lyrics {
-		max-height: 12vh;
-		font-size: 12.5px;
-		padding: 8px 10px;
-	}
-
-	.lore-btn {
-		width: 40px;
-		height: 40px;
-	}
-}
-
-#lore-lyrics,
-.lore-lyrics-hidden {
-	width: 100%;
-	max-height: 0;
-	overflow-y: auto;
+	height: 0;
 	margin: 0;
-	padding: 0;
-	border-radius: 10px;
-	background: rgba(255, 255, 255, 0.05);
-	color: #fff4c2;
-	font-size: 13px;
-	line-height: 1.4;
-	text-align: center;
+}
+
+#box-bottom #box-picto .pictoline.custom-pos .picto {
+	position: absolute;
+	top: 0;
+	margin: 0;
+}
+
+#box-top #box-bt2 .item-left .custom-ui-toolbar {
+	margin-left: calc(var(--bt-big-scale) * 14px);
+}
+
+.custom-ui-toolbar .icn-img,
+.custom-ui-home .icn-img,
+.custom-ui-tab .icn-img,
+#poplist .custom-ui-page .icn-img {
+	width: 70%;
+	height: 70%;
+	object-fit: contain;
+	pointer-events: none;
+}
+
+.custom-ui-home .bck .txt {
+	font-size: calc(var(--bt-scale) * 11px);
+	letter-spacing: 0;
+}
+
+#pop-param .custom-ui-tab .icon {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	vertical-align: middle;
+	margin-right: 4px;
+}
+
+#pop-param .pop.custom-ui-page .container.custom-ui-settings {
+	text-align: left;
+}
+
+:root {
+	--remove-pending-color: #e5484d;
+}
+
+#game #box-polo .polo .remove-pending-badge {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 34px;
+	height: 34px;
+	margin-left: -17px;
+	border-radius: 50%;
+	background-color: var(--remove-pending-color);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+	pointer-events: none;
 	opacity: 0;
-	transform: translateY(6px);
-	transition: opacity 0.22s ease, transform 0.22s ease, max-height 0.25s ease, padding 0.22s ease, margin 0.22s ease;
+	transform: scale(0.4);
+	transition: opacity 0.15s, transform 0.2s cubic-bezier(.2, .8, .2, 1.4);
 }
 
-#lore-lyrics.visible {
+#game #box-polo .polo .remove-pending-badge .icn-svg {
+	width: 100%;
+	height: 100%;
+	fill: #fff;
+}
+
+#game #box-polo .polo.remove-pending .remove-pending-badge {
 	opacity: 1;
-	transform: translateY(0);
-	margin: 6px 0 8px;
-	padding: 8px 12px;
-	max-height: 18vh;
+	transform: scale(1);
+	animation: removePendingPulse 0.9s ease-in-out infinite alternate;
 }
 
-@media (min-width: 900px) {
-	#lore-lyrics.visible {
-		max-height: 22vh;
+.pause #game #box-polo .polo.remove-pending .remove-pending-badge {
+	animation-play-state: paused;
+}
+
+#game #box-stage .polo .ctrl .cbt.icon-game-bt-delete-next.light {
+	opacity: 1;
+}
+
+#game #box-stage .polo .ctrl .cbt.icon-game-bt-delete-next.light .icn-svg {
+	fill: var(--remove-pending-color);
+}
+
+#game .box-loader .zone.remove-pending .loader .bar {
+	background-color: var(--remove-pending-color) !important;
+}
+
+@keyframes removePendingPulse {
+	from {
+		transform: scale(1);
+	}
+
+	to {
+		transform: scale(0.85);
 	}
 }
 
-@media (max-width: 600px) {
-	#lore-lyrics.visible {
-		max-height: 12vh;
-	}
-}
-
-.lore-lyric-line {
-	margin: 2px 0;
-	white-space: pre-wrap;
-}
-
-#lore-lyrics::-webkit-scrollbar {
-	height: 8px;
-	width: 8px;
-}
-
-#lore-lyrics::-webkit-scrollbar-thumb {
-	background: rgba(255, 255, 255, 0.06);
-	border-radius: 8px;
-}
-
-@media (max-width: 600px) {
-	#lore-popup {
-		width: 90%;
-		padding: 12px;
-		border-radius: 14px;
-	}
-
-	#lore-name {
-		font-size: 18px;
-		margin-bottom: 6px;
-	}
-
-	#lore-image {
-		max-height: 22vh;
-		width: auto;
-		margin-bottom: 12px;
-	}
-
-	#lore-info,
-	#lore-sound {
-		font-size: 13px;
-		margin-bottom: 8px;
-	}
-
-	#lore-description {
-		font-size: 13px;
-		padding: 0 6px;
-		margin-bottom: 14px;
-		text-align: center;
-	}
-
-	#lore-lyrics {
-		font-size: 12px;
-		padding: 8px 10px;
-	}
-
-	#lore-popup button {
-		padding: 8px 14px;
-		font-size: 13px;
-		border-radius: 8px;
-	}
-
-	#lore-popup>div {
-		gap: 6px;
-		flex-wrap: wrap;
-	}
+#box-top .bt-bonus.unavailable {
+	opacity: 0.45;
+	filter: grayscale(1);
+	animation: none !important;
 }

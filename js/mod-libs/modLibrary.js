@@ -1,3 +1,9 @@
+/*
+ * mod-libs/modLibrary.js
+ * The "Played Mods" page (js/mod-libs/index.html): lists every mod registered in the ModLibraryDB
+ * IndexedDB by js/api/mod-library.js, with last-played time and a delete button.
+ */
+
 function goBack() {
     let e = localStorage.getItem("lastPage");
     if (e) {
@@ -6,11 +12,54 @@ function goBack() {
         alert("No previous page found!");
     }
 }
-function displayMods() {
-    indexedDB.open("ModLibraryDB", 2).onsuccess = function (e) {
+/** Opens the same database as js/api/mod-library.js (creating it if this page is opened first). */
+function openLibraryDB(onReady) {
+    const request = indexedDB.open("ModLibraryDB", 2);
+    request.onupgradeneeded = function (e) {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains("modIcons")) {
+            db.createObjectStore("modIcons", { keyPath: "name" });
+        }
+    };
+    request.onsuccess = onReady;
+    request.onerror = function () {
+        document.getElementById("mods-found").innerText = "Could not open the mod library.";
+    };
+}
+/**
+ * The library entries. Desktop app: the list shared by every mod (electron/mod-library-store.js,
+ * see ModLibraryStore in js/api/mod-library.js). Browser: IndexedDB.
+ */
+function getAllLibraryMods(callback) {
+    const shared = window.electron?.ipc?.modLibrary;
+    if (shared) {
+        shared.getAll().then(callback, () => callback([]));
+        return;
+    }
+    openLibraryDB(function (e) {
         let o = e.target.result.transaction("modIcons", "readonly").objectStore("modIcons").getAll();
-        o.onsuccess = function () {
-            let e = o.result;
+        o.onsuccess = () => callback(o.result);
+    });
+}
+function deleteLibraryMod(name, callback) {
+    const shared = window.electron?.ipc?.modLibrary;
+    if (shared) {
+        shared.delete(name).then(callback, callback);
+        return;
+    }
+    openLibraryDB(function (o) {
+        o.target.result.transaction("modIcons", "readwrite").objectStore("modIcons").delete(name);
+        callback();
+    });
+}
+/** Mod names/versions come from other mods: never insert them as HTML. */
+function escapeText(text) {
+    return String(text ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function displayMods() {
+    getAllLibraryMods(function (result) {
+        {
+            let e = result || [];
             let t = document.getElementById("library");
             t.innerHTML = "";
             let n = document.getElementById("mods-found");
@@ -22,42 +71,42 @@ function displayMods() {
             e.forEach(e => {
                 let o = document.createElement("div");
                 o.classList.add("mod-card");
-                o.id = e.name;
+                o.dataset.name = e.name;
                 let n = document.createElement("div");
                 n.classList.add("special-bg");
-                n.style.backgroundImage = `url(${e.background})`;
+                n.style.backgroundImage = `url("${String(e.background || "").replace(/["\\]/g, "")}")`;
                 let d = e.lastPlayed && !isNaN(e.lastPlayed) ? getTimeAgo(Number(e.lastPlayed)) : "Never played";
                 o.innerHTML = `
-                    <img src="${e.icon}" class="mod-icon">
+                    <img src="${escapeText(e.icon)}" class="mod-icon">
                     <div class="mod-info">
-                        <h3>${e.name}</h3>
-                        <p>Version: ${e.version}</p>
-                        <p>By: ${e.developer}</p>
+                        <h3>${escapeText(e.name)}</h3>
+                        <p>Version: ${escapeText(e.version)}</p>
+                        <p>By: ${escapeText(e.developer)}</p>
                         <br>
                         <div class="played-date">Last played: ${d}</div>
                     </div>
-                    <div class="delete-button" onclick="confirmDeleteMod('${e.name}')">
+                    <div class="delete-button">
                         <svg class="icn-svg">
                             <use xlink:href="#ic-trash"></use>
                         </svg>
                     </div>
                 `;
+                o.querySelector(".delete-button").addEventListener("click", () => confirmDeleteMod(e.name));
                 o.appendChild(n);
                 t.appendChild(o);
-                countMods();
             });
-        };
-    };
+            countMods();
+        }
+    });
 }
 function deleteMod(e) {
-    indexedDB.open("ModLibraryDB", 2).onsuccess = function (o) {
-        o.target.result.transaction("modIcons", "readwrite").objectStore("modIcons").delete(e);
-        const card = document.getElementById(e);
+    deleteLibraryMod(e, function () {
+        const card = [...document.querySelectorAll(".mod-card")].find(c => c.dataset.name === e);
         if (card) {
             card.remove();
         }
         countMods();
-    };
+    });
 }
 let pendingDeleteModName = null;
 function confirmDeleteMod(e) {
@@ -172,7 +221,6 @@ function getTimeAgo(e) {
     }
 }
 document.addEventListener("DOMContentLoaded", () => {
-    document.body.classList.add("page-zoom");
     if (localStorage.getItem("param-dark") === "true") {
         document.body.classList.add("darkmode");
         console.log("Dark mode enabled");
@@ -211,4 +259,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     displayMods();
-});
+});

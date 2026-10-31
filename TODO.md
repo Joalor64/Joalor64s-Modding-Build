@@ -1,16 +1,30 @@
 # To-Dos
+## V0.3.0 Release
+### High Priority
+* [ ] Lua Support
+* [ ] Blend Modes for Overlays
+* [ ] Customizable Lyrics Display
+* [ ] Built-In Docs/Modding Tools
+
+### Mod Launcher To-Dos
+* [ ] Downloading Addons
+* [ ] Mobile Support
+
+### Low Priority
+* [ ] Multibox (Multiplayer)
+* [ ] Polo Crossfades
+
 ## V0.2.0 Release
 ### High Priority
 * [X] Lyrics Translations
 * [X] Improve Quick-swapping
-* [ ] Delayed Removal for Polos
-* [ ] Customizable Picto Positions
-* [ ] Customizability for Lore Display
-* [ ] Mod Launcher Mobile Support
+* [X] Delayed Removal for Polos
+* [X] Customizable Picto Positions
+* [X] Custom Menu Tabs
+* [X] Custom Polo Animations (rebond, remonte, deshabiller)
 
 ### Low Priority
-* [ ] Live Reloading for Desktop
-* [ ] Polo Crossfades
+* [X] Live Reloading for Desktop
 
 ## V0.1.0 Release
 ### High Priority

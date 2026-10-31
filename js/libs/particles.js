@@ -1518,6 +1518,11 @@ window.particlesJS = function(tag_id, params){
     canvas_el.style.zIndex = "2";
   }
 
+  /* border radius */
+  if (app != null && app.backgroundRadius && app.backgroundRadius != "0") {
+    canvas_el.style.borderRadius = app.backgroundRadius;
+  }
+
   /* append canvas */
   var canvas = document.getElementById(tag_id).appendChild(canvas_el);
 

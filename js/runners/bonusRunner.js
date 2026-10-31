@@ -1,3 +1,8 @@
+/*
+ * runners/bonusRunner.js
+ * Adapts the help slideshow and the "reset bonuses" setting to versions without bonuses.
+ */
+
 function handleBonusTutorialBloc() {
     const imgRow = document.querySelector(".img-row");
     if (!imgRow) {
@@ -38,13 +43,9 @@ function updateBonusResetVisibility() {
         Array.isArray(app.bonusarray) &&
         app.bonusarray.length > 0;
 
-    if (hasBonusArray) {
-        resetParam.style.display = "flex";
-        bonusHr.style.display = "flex";
-    } else {
-        resetParam.style.display = "none";
-        bonusHr.style.display = "none";
-    }
+    const display = hasBonusArray ? "flex" : "none";
+    if (resetParam) resetParam.style.display = display;
+    if (bonusHr) bonusHr.style.display = display;
 }
 
-window.updateBonusResetVisibility = updateBonusResetVisibility;
+window.updateBonusResetVisibility = updateBonusResetVisibility;

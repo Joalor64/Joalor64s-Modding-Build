@@ -9,7 +9,6 @@
 
     "colors":["#D8A365", "#BA7B3D", "#A16224", "#6A3501", "#422101", "#201200"],
 
-    "useModboxAnimeNaming": false,
     "pictoRowMax": 7,
 
     "animearray": [

@@ -2,14 +2,15 @@
 An expanded and more customizable version of Rem's Modding Build for Incredibox!
 
 ## Documentation
-At the moment, there is little to no documentation, but proper docs will be added later on.\
-For the time being, I suggest going through the code to see what you can do.
+To view the documentation, check out [STRUCTURE.md](./STRUCTURE.md).<br> 
+Additionally, for further documentation, you can look through the [`.js`](./js/) files to see what each file and its functions do in detail.
 
 ## Credits
 ### Build Credits / Special Thanks
 * Joalor64 - Creator, Programmer
 * Rizsim Studios - Some Bugfixes and Help
 * Rem - Base Modding Build (RMB)
+* PacificY - Borrowed Code
 
 ### SO FAR SO GOOD
 * Allan - Director / Dev

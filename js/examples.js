@@ -1,5 +1,5 @@
-// This is the list of the functions that are used in this API
-// Note that it is incomplete, as proper documentation will be added later on
+// This is the list of some of the functions that are used in this API
+// (This file is only a reference: it is not loaded by the game. See STRUCTURE.md for which file defines what.)
 
 // EFFECTS:
 Shake(power, time); // shake the screen
@@ -7,7 +7,7 @@ FadeOut(color, time); // add fadeout effect on whole screen
 ChangeColorBG(color, time, boolean); // change the background color - boolean is for if you want to keep the color forever
 CleanColorBG(); // remove custom BG color (for example if you set it to stay forever)
 Bloom(power, time); // add bloom effect
-MakeConfetti(scale, spread, gravity, ticks, amount ,element, image); // make confetti - you can set element where it should appear, for example "custom-cursor"
+MakeConfetti(scale, spread, gravity, ticks, amount, element, image); // make confetti - you can set element where it should appear, for example "custom-cursor"
 playAudio(file, options); // play sound effect with options (loop, fadein, fadeout, fadeduration)
 Zoom(zoomLevel, zoomInSmoothly, zoomOutSmoothly); // zoom in or out the screen | Example Zoom(105, true, false) - will zoom in smoothly by 5
 setCustomCursor(image); // set custom cursor
@@ -17,7 +17,7 @@ fullPopup(image, duration); // show full screen popup with image with an optiona
 
 // MESSAGES & TEXTS:
 QuickMessage(text, time); // show message at the bottom of the screen, can be used for lyrics
-showNotification(text); // show notification on top (It's used for debug purposes and its disabled, you need to remove .notification{display: none !important;} from CSS to see it)
+toast.show(title, seconds, message); // show a small notification card at the bottom
 ChangeMenuTitle(text); // change the title on the menu (for example "Select version to start mixing")
 boxDialog.open(text, title, button, boolean); // open dialog box with text, title, button text and boolean if you want to make it not closable
 boxDialog.close(); // close existing dialog box
@@ -68,11 +68,11 @@ addProgressAchievement(modName, id, amount); // add progress to achievement
 unlockAchievement(modName, achievementId); // unlock achievement
 
 // Example of Achievement:
-OnDelayIn(500, function(){
+OnDelayIn(500, function () {
     setAchievement(RegisterMod, "ach_1", "ach_thanks.png", "Thanks!", "Read the credits", "normal");
 });
 
-OnClick('home-bt-modcredits', function(){
+OnClick('home-bt-modcredits', function () {
     unlockAchievement(RegisterMod, "ach_1");
 });
 
@@ -102,11 +102,48 @@ function onV1Start() {
 }
 
 function onV2Start() {
-    Catch("Testing_v1start", function(){
-        OnDelayIn(500, function(){
+    Catch("Testing_v1start", function () {
+        OnDelayIn(500, function () {
             boxDialog.open("This message is sent from v1", "Info", "OK", true);
         });
     });
 }
 
 // This function saves "Testing_v1start" when you open V1, and when you will go to v2, you will get this message, if you wouldnt go to v1, this message wouldnt appear in v2
+
+// POLOS - DELAYED REMOVAL:
+delayRemovePoloById(poloId); // remove polo `poloId` when the next loop starts (call again before then to cancel) - same as its clock button / swiping it sideways
+cancelDelayRemovePoloById(poloId); // cancel it
+// Hook: onV1Polo3DelayRemove(pending) is called when picto 3 is set to leave (pending = true) or the removal is cancelled (false)
+
+// POLOS - CUSTOM MOVEMENTS:
+// Define these in mod.js. Return an animation, or null to keep the built-in movement.
+//   _loadAnime_rebond(self)       picto dropped on a polo (bounce)
+//   _loadAnime_deshabiller(self)  polo cleared (drops off)
+//   _loadAnime_remonte(self)      polo comes back up
+// Keyframe fields: time (0-1), y, x, offsetX, rotate (radians, or deg(15)), headRotate, scale, scaleX, scaleY, pivotX, pivotY, alpha, ease
+// Pick a different movement per character with "rebond" / "deshabiller" / "remonte" in app.json (or the anime JSON),
+// read as self.rebond_anime / self.deshabiller_anime / self.remonte_anime.
+
+function _loadAnime_rebond(self) {
+    if (self.rebond_anime == "wobble") {
+        return {
+            totalDuration: 0.8,
+            keyframes: [
+                { time: 0.00, rotate: 0 },
+                { time: 0.15, y: self.targetY - drawMaxBounceY, rotate: deg(12), ease: "Quint.easeOut" },
+                { time: 0.40, y: self.targetY, rotate: deg(-8), ease: "Back.easeOut" },
+                { time: 0.70, rotate: deg(4), ease: "Sine.easeInOut" },
+                { time: 1.00, rotate: 0, ease: "Elastic.easeOut.config(1.2, 0.4)" }
+            ]
+        };
+    }
+    return null; // everyone else: built-in bounce (or: return defaultPoloAnime.rebond(self);)
+}
+// app.json: { "name": "drum1_kick", "color": "#E5A90E", "rebond": "wobble" }
+
+// MODDING TOOLS:
+// F8 = mod checker (finds missing files, typos, broken JSON, misspelled hooks, etc.) | F9 = live reload on/off (desktop only)
+runModCheck().then(report => console.log(report.errors, report.warnings, report.entries)); // run the checker from code
+openModChecker(); // show the checker panel
+// js/registerMod.js: var LiveReload = true; // reload the game when you save a file (turn it off before releasing!)

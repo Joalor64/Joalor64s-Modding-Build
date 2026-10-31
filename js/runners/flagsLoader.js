@@ -1,3 +1,9 @@
+/*
+ * runners/flagsLoader.js
+ * Positions of every country flag inside img/flags.png (used by the mix "DJ country" flags).
+ * Call initFlags() after adding new .fflag elements.
+ */
+
 (function () {
     const flagData = {
         "DZ": "center 0.2287%", "AO": "center 0.4524%", "BJ": "center 0.6721%", "BW": "center 0.8958%",
@@ -84,4 +90,4 @@
 
     window.initFlags = applyFlags;
     console.log("Flags initialized successfully.");
-})();
+})();

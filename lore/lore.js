@@ -1,10 +1,18 @@
-let loadError = false;
+/*
+ * lore.js
+ * The lore / character info popup (the "lore" button from js/buttons.js, app.html only).
+ * Data: lore/data/v<version>.xml, images: lore/img/v<version>/.
+ * <character slot image json isLazyAhhCanvasRender color> with <name> <gender> <age> <sound> <description> <lyrics>
+ * isLazyAhhCanvasRender="true" draws the first frame of a sprite sheet (image + json) instead of a plain image;
+ * <canvasX>/<canvasY> (optional) nudge that drawing (CSS lengths: "10px", "-5%"), large screens only.
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('lore-overlay');
+    let loadError = false;
     let openBtn = document.querySelector('#home-bt-lore .hitzone');
 
-    let img, nameEl, infoEl, soundEl, descEl, prev, next;
+    let img, nameEl, infoEl, soundEl, descEl, prev, next, counterEl, layoutEl;
 
     let data = [];
     let index = 0;
@@ -12,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadXML() {
         try {
             const res = await fetch(`./lore/data/v${appVersion}.xml`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const text = await res.text();
             const xml = new DOMParser().parseFromString(text, 'text/xml');
 
@@ -40,14 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            if (data.length > 0 && !overlay.classList.contains('hidden')) {
+            if (data.length > 0 && overlay && !overlay.classList.contains('hidden')) {
                 showCharacter(index);
             }
 
             loadError = false;
         } catch (e) {
             loadError = true;
-            console.error('Failed to load lore XML:', e);
+            console.warn('Failed to load lore XML:', e.message);
         }
     }
 
@@ -70,8 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!soundEl) soundEl = document.getElementById('lore-sound');
         if (!descEl) descEl = document.getElementById('lore-description');
 
-        if (img) img.src = `./lore/img/v${appVersion}/${c.image}`;
+        if (img) {
+            img.src = `./lore/img/v${appVersion}/${c.image}`;
+            img.alt = c.name;
+        }
         if (nameEl) nameEl.textContent = `${c.slot} - ${c.name}`;
+        if (counterEl) counterEl.textContent = `${i + 1} / ${data.length}`;
         if (infoEl) infoEl.textContent = `Gender: ${c.gender} | Age: ${c.age}`;
         if (soundEl) soundEl.textContent = `Sound: ${c.sound}`;
         if (descEl) descEl.textContent = c.desc;
@@ -81,10 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
             existingLyrics.remove();
         }
 
-        if (!c.desc || c.desc.trim().length === 0) {
-            descEl.style.display = 'none';
-        } else {
-            descEl.style.display = 'block';
+        if (descEl) {
+            descEl.style.display = (!c.desc || c.desc.trim().length === 0) ? 'none' : 'block';
         }
 
         const existingToggle = document.querySelector('.lore-lyrics-toggle');
@@ -140,11 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
             normalize(versions?.[`v${appVersion}`]?.animearray?.[i]?.color) ||
             normalize(app?.animearray?.[i]?.color);
 
-        nameEl.style.color = raw
-            ? raw.startsWith("#") ? raw : `#${raw}`
-            : "#808080";
-
-        console.log("color picked:", nameEl.style.color);
+        if (nameEl) {
+            nameEl.style.color = raw
+                ? raw.startsWith("#") ? raw : `#${raw}`
+                : "#808080";
+        }
 
         const canvas = document.querySelector(
             '.box-popup#pop-dialog #lore-canvas'
@@ -157,8 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
             img.style.display = 'none';
             canvas.style.display = 'block';
 
-            c.canvasX ? canvas.style.marginLeft = c.canvasX : canvas.style.marginLeft = '23%';
-            c.canvasY ? canvas.style.marginBottom = c.canvasY : canvas.style.marginBottom = '-37px';
+            const nudge = (c.canvasX || c.canvasY) && !window.matchMedia('(max-width: 600px), (max-height: 560px)').matches;
+            canvas.style.transform = nudge ? `translate(${c.canvasX || 0}, ${c.canvasY ? `calc(-1 * ${c.canvasY})` : 0})` : '';
 
             renderLazyCanvas(c, canvas);
         }
@@ -173,8 +184,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
         ctx.imageSmoothingEnabled = false;
 
-        const json = await fetch(`./lore/img/v${appVersion}/${c.json}`).then(r => r.json());
-        const sprite = await loadImage(`./lore/img/v${appVersion}/${c.image}`);
+        let json, sprite;
+        try {
+            json = await fetch(`./lore/img/v${appVersion}/${c.json}`).then(r => r.json());
+            sprite = await loadImage(`./lore/img/v${appVersion}/${c.image}`);
+        } catch (e) {
+            console.warn('Lore: could not draw the sprite of', c.name, e);
+            return;
+        }
+        if (data[index] !== c) return;
 
         const logicalW = Number(json.width) || 164;
         const logicalH = Number(json.height) || 380;
@@ -183,9 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         canvas.width = logicalW * HD_SCALE;
         canvas.height = logicalH * HD_SCALE;
-
-        canvas.style.width = logicalW + 'px';
-        canvas.style.height = logicalH + 'px';
+        canvas.style.removeProperty('width');
+        canvas.style.removeProperty('height');
+        canvas.style.setProperty('--lore-canvas-h', (logicalH / 1.2) + 'px');
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(
@@ -193,10 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
             gap * 2, 0,
             canvas.width, canvas.height,
             0, 0,
-            canvas.width / 1.2, canvas.height / 1.2
+            canvas.width, canvas.height
         );
-
-        console.log("lazy canvas render (correct scale):", c.name);
     }
 
     function openOverlay() {
@@ -215,18 +231,13 @@ document.addEventListener('DOMContentLoaded', () => {
         descEl = dialogText.querySelector('#lore-description');
         prev = dialogText.querySelector('#prev-btn');
         next = dialogText.querySelector('#next-btn');
+        counterEl = dialogText.querySelector('#lore-counter');
+        layoutEl = dialogText.querySelector('.lore-layout');
 
-        next?.addEventListener('click', () => {
-            if (data.length === 0) return;
-            index = (index + 1) % data.length;
-            showCharacter(index);
-        });
-
-        prev?.addEventListener('click', () => {
-            if (data.length === 0) return;
-            index = (index - 1 + data.length) % data.length;
-            showCharacter(index);
-        });
+        next?.addEventListener('click', () => go(1));
+        prev?.addEventListener('click', () => go(-1));
+        dialogText.querySelector('#lore-close')?.addEventListener('click', closeOverlay);
+        if (layoutEl) addSwipe(layoutEl);
 
         const dialogRoot = document.querySelector('.box-popup#pop-dialog');
         if (dialogRoot) {
@@ -240,6 +251,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showCharacter(index);
     }
+
+    function go(step) {
+        if (data.length === 0) return;
+        index = (index + step + data.length) % data.length;
+        if (layoutEl) {
+            layoutEl.classList.add('lore-switching');
+            setTimeout(() => {
+                showCharacter(index);
+                layoutEl.querySelector('.lore-body')?.scrollTo(0, 0);
+                layoutEl.classList.remove('lore-switching');
+            }, 90);
+        } else {
+            showCharacter(index);
+        }
+    }
+
+    function addSwipe(el) {
+        let startX = null, startY = 0, startT = 0;
+        el.addEventListener('pointerdown', e => {
+            if (e.target.closest('button')) return;
+            startX = e.clientX; startY = e.clientY; startT = Date.now();
+        });
+        const end = e => {
+            if (startX === null) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            startX = null;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5 && Date.now() - startT < 800) {
+                go(dx < 0 ? 1 : -1);
+            }
+        };
+        el.addEventListener('pointerup', end);
+        el.addEventListener('pointercancel', () => { startX = null; });
+    }
+
+    function isOpen() {
+        return !!document.querySelector('.box-popup#pop-dialog.show[data-name="lore"]');
+    }
+
+    document.addEventListener('keydown', e => {
+        if (!isOpen() || e.altKey || e.ctrlKey || e.metaKey) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    });
 
     function closeOverlay() {
         try {

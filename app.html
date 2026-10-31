@@ -12,6 +12,7 @@
 	<meta name="viewport"
 		content="user-scalable=no,initial-scale=1,minimum-scale=1,width=device-width,height=device-height" />
 	<link rel="stylesheet" type="text/css" href="css/style.min.css" />
+	<link rel="stylesheet" href="css/lore.css">
 	<link rel="stylesheet" type="text/css" href="css/mod.css" />
 </head>
 
@@ -969,25 +970,34 @@
 	</div>
 	<div id="lore-overlay" style="display:none;">
 		<div id="lore-popup" class="lore-popup">
-			<div class="lore-body">
+			<div class="lore-layout">
 				<h2 id="lore-name" class="lore-name"></h2>
-				<img id="lore-image" class="lore-image">
-				<canvas id="lore-canvas" class="lore-canvas" style="display:none;"></canvas>
-				<p id="lore-info" class="lore-info"></p>
-				<p id="lore-sound" class="lore-sound"></p>
-				<p id="lore-description" class="lore-description"></p>
-				<div id="lore-lyrics" class="lore-lyrics"></div>
+				<div class="lore-art">
+					<img id="lore-image" class="lore-image" alt="">
+					<canvas id="lore-canvas" class="lore-canvas" style="display:none;"></canvas>
+				</div>
+				<div class="lore-body">
+					<p id="lore-info" class="lore-info"></p>
+					<p id="lore-sound" class="lore-sound"></p>
+					<p id="lore-description" class="lore-description"></p>
+				</div>
+				<div class="lore-nav">
+					<button id="prev-btn" class="lore-btn lore-btn-prev" type="button" aria-label="Previous character">
+						<div class="bck"><svg class="icn-svg">
+								<use xlink:href="#ic-navl"></use>
+							</svg></div>
+					</button>
+					<span id="lore-counter" class="lore-counter"></span>
+					<button id="next-btn" class="lore-btn lore-btn-next" type="button" aria-label="Next character">
+						<div class="bck"><svg class="icn-svg">
+								<use xlink:href="#ic-navr"></use>
+							</svg></div>
+					</button>
+				</div>
+				<button id="lore-close" class="lore-close" type="button" aria-label="Close"><svg class="icn-svg">
+						<use xlink:href="#ic-close"></use>
+					</svg></button>
 			</div>
-			<button id="prev-btn" class="lore-btn lore-btn-prev">
-				<div class="bck"><svg class="icn-svg">
-						<use xlink:href="#ic-navl"></use>
-					</svg></div>
-			</button>
-			<button id="next-btn" class="lore-btn lore-btn-next">
-				<div class="bck"><svg class="icn-svg">
-						<use xlink:href="#ic-navr"></use>
-					</svg></div>
-			</button>
 		</div>
 	</div>
 	<div class="box-popup" id="pop-popup">
@@ -1055,29 +1065,7 @@
 	<div id="fade-all" class="fadeIn"></div>
 	<div id="lock-all"></div>
 	<div id="dragbar"></div>
-	<script src="js/runners/consoleViewer.js"></script>
-	<script src="js/runners/f3Display.js"></script>
-	<script src="js/runners/iconsLoader.js"></script>
-	<script src="js/registerMod.js"></script>
-	<script src="js/libs/achi.js"></script>
-	<script src="js/libs/achi-counter.js"></script>
-	<script src="js/buttons.js"></script>
-	<script src="js/libs/core.js"></script>
-	<script src="js/libs/hotkeys.js"></script>
-	<script src="js/libs/jquery.js"></script>
-	<script src="js/libs/tsparticles.confetti.bundle.min.js"></script>
-	<script src="js/libs/clouds.js"></script>
-	<script src="js/libs/particles.js"></script>
-	<script src="js/libs/TweenMax.min.js"></script>
-	<script src="js/libs/EasePack.min.js"></script>
-	<script src="js/libs/ScrollToPlugin.min.js"></script>
-	<script src="js/runners/flagsLoader.js"></script>
-	<script src="lang/lang.js"></script>
-	<script src="js/script.min.js"></script>
-	<script src="js/runners/bonusRunner.js"></script>
-	<script src="js/apps.js"></script>
-	<script src="js/mod.js"></script>
-	<script src="lore/lore.js"></script>
+	<script src="js/scripts.js" data-page="app"></script>
 </body>
 
 </html>

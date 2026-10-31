@@ -1,3 +1,8 @@
+/*
+ * runners/iconsLoader.js
+ * Inserts the SVG icon sprite (img/icons.svg) into the page so <use xlink:href="#ic-..."> works.
+ */
+
 async function injectSvgSprite(url) {
     try {
         const response = await fetch(url);
@@ -14,4 +19,4 @@ async function injectSvgSprite(url) {
     } catch (error) {
         console.warn("Could not inject icons sprite:", error);
     }
-}
+}

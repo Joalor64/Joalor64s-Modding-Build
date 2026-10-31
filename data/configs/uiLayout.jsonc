@@ -1,0 +1,40 @@
+// Custom UI layout, per version ("v1", "v2"...). A "default" entry applies to every version
+// that has no entry of its own. Delete a version's entry (or this whole file) to go back to rows.
+//
+// "picto": the icon positions. Keys are the picto numbers (0 = first sound in app.json).
+//   x, y, size: relative to the WIDTH of the icon area, so a row step is size + gap.
+//               Numbers are read as %, "px" values work too ("12px").
+//   z:          optional stacking order (z-index)
+//   Icons with no entry are placed on extra rows below the others.
+//
+// You can also define the same thing in JS as `_UI = { "v1": { "picto": {...} } }`
+// (it is merged over this file).
+{
+	// Example: the classic 2-row staggered layout (icon 7.6%, gap 1.9%)
+	/*
+	"v1": {
+		"picto": {
+			"0":  { "x": "0.95%",  "y": "0%",   "size": "7.6%" },
+			"1":  { "x": "10.45%", "y": "0%",   "size": "7.6%" },
+			"2":  { "x": "19.95%", "y": "0%",   "size": "7.6%" },
+			"3":  { "x": "29.45%", "y": "0%",   "size": "7.6%" },
+			"4":  { "x": "38.95%", "y": "0%",   "size": "7.6%" },
+			"5":  { "x": "48.45%", "y": "0%",   "size": "7.6%" },
+			"6":  { "x": "57.95%", "y": "0%",   "size": "7.6%" },
+			"7":  { "x": "67.45%", "y": "0%",   "size": "7.6%" },
+			"8":  { "x": "76.95%", "y": "0%",   "size": "7.6%" },
+			"9":  { "x": "86.45%", "y": "0%",   "size": "7.6%" },
+			"10": { "x": "5.95%",  "y": "9.5%", "size": "7.6%" },
+			"11": { "x": "15.45%", "y": "9.5%", "size": "7.6%" },
+			"12": { "x": "24.95%", "y": "9.5%", "size": "7.6%" },
+			"13": { "x": "34.45%", "y": "9.5%", "size": "7.6%" },
+			"14": { "x": "43.95%", "y": "9.5%", "size": "7.6%" },
+			"15": { "x": "53.45%", "y": "9.5%", "size": "7.6%" },
+			"16": { "x": "62.95%", "y": "9.5%", "size": "7.6%" },
+			"17": { "x": "72.45%", "y": "9.5%", "size": "7.6%" },
+			"18": { "x": "81.95%", "y": "9.5%", "size": "7.6%" },
+			"19": { "x": "91.45%", "y": "9.5%", "size": "7.6%" }
+		}
+	}
+	*/
+}
